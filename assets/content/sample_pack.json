@@ -1,0 +1,2966 @@
+{
+  "version": "2026.08-preseason",
+  "season": "2026/27",
+  "sim_config": {
+    "possession_chunks_per_match": 20,
+    "home_advantage": 3.0,
+    "chance_conversion_baseline": 0.3,
+    "fitness_impact": 0.15,
+    "morale_impact": 0.1,
+    "random_seed_fallback": 1337
+  },
+  "clubs": [
+    {
+      "id": "club_riverside",
+      "name": "Riverside FC",
+      "short_name": "RIV",
+      "reputation": 62,
+      "balance": 2808231,
+      "squad": [
+        {
+          "id": "p_riv_01",
+          "name": "Finn Lefevre",
+          "nationality": "KOR",
+          "position": "fwd",
+          "attributes": {
+            "pace": 69,
+            "shooting": 82,
+            "passing": 57,
+            "defending": 46,
+            "physical": 65,
+            "goalkeeping": 20
+          },
+          "fitness": 98,
+          "morale": 65,
+          "wage": 8450,
+          "value": 10985000
+        },
+        {
+          "id": "p_riv_02",
+          "name": "Diego Sato",
+          "nationality": "ENG",
+          "position": "def",
+          "attributes": {
+            "pace": 48,
+            "shooting": 34,
+            "passing": 51,
+            "defending": 59,
+            "physical": 55,
+            "goalkeeping": 20
+          },
+          "fitness": 93,
+          "morale": 80,
+          "wage": 6272,
+          "value": 7024640
+        },
+        {
+          "id": "p_riv_03",
+          "name": "Pawel Mbeki",
+          "nationality": "ENG",
+          "position": "fwd",
+          "attributes": {
+            "pace": 61,
+            "shooting": 56,
+            "passing": 46,
+            "defending": 20,
+            "physical": 50,
+            "goalkeeping": 20
+          },
+          "fitness": 91,
+          "morale": 77,
+          "wage": 4802,
+          "value": 4705960
+        },
+        {
+          "id": "p_riv_04",
+          "name": "Wei Rahman",
+          "nationality": "NGA",
+          "position": "def",
+          "attributes": {
+            "pace": 39,
+            "shooting": 29,
+            "passing": 44,
+            "defending": 52,
+            "physical": 54,
+            "goalkeeping": 20
+          },
+          "fitness": 96,
+          "morale": 60,
+          "wage": 5000,
+          "value": 5000000
+        },
+        {
+          "id": "p_riv_05",
+          "name": "Liam Nkomo",
+          "nationality": "NED",
+          "position": "mid",
+          "attributes": {
+            "pace": 60,
+            "shooting": 50,
+            "passing": 69,
+            "defending": 64,
+            "physical": 51,
+            "goalkeeping": 20
+          },
+          "fitness": 92,
+          "morale": 60,
+          "wage": 6962,
+          "value": 8215160
+        },
+        {
+          "id": "p_riv_06",
+          "name": "Hugo Costa",
+          "nationality": "IRL",
+          "position": "mid",
+          "attributes": {
+            "pace": 64,
+            "shooting": 55,
+            "passing": 71,
+            "defending": 57,
+            "physical": 53,
+            "goalkeeping": 20
+          },
+          "fitness": 97,
+          "morale": 63,
+          "wage": 7688,
+          "value": 9533120
+        },
+        {
+          "id": "p_riv_07",
+          "name": "Vikram Greco",
+          "nationality": "POL",
+          "position": "fwd",
+          "attributes": {
+            "pace": 54,
+            "shooting": 64,
+            "passing": 41,
+            "defending": 32,
+            "physical": 54,
+            "goalkeeping": 20
+          },
+          "fitness": 89,
+          "morale": 62,
+          "wage": 5000,
+          "value": 5000000
+        },
+        {
+          "id": "p_riv_08",
+          "name": "Samuel Conti",
+          "nationality": "GER",
+          "position": "fwd",
+          "attributes": {
+            "pace": 86,
+            "shooting": 83,
+            "passing": 74,
+            "defending": 51,
+            "physical": 75,
+            "goalkeeping": 26
+          },
+          "fitness": 100,
+          "morale": 57,
+          "wage": 10082,
+          "value": 14316440
+        },
+        {
+          "id": "p_riv_09",
+          "name": "Jonas Park",
+          "nationality": "FRA",
+          "position": "def",
+          "attributes": {
+            "pace": 61,
+            "shooting": 47,
+            "passing": 61,
+            "defending": 77,
+            "physical": 82,
+            "goalkeeping": 31
+          },
+          "fitness": 99,
+          "morale": 71,
+          "wage": 10368,
+          "value": 14929920
+        },
+        {
+          "id": "p_riv_10",
+          "name": "Haruto Romano",
+          "nationality": "RUS",
+          "position": "mid",
+          "attributes": {
+            "pace": 63,
+            "shooting": 41,
+            "passing": 61,
+            "defending": 58,
+            "physical": 54,
+            "goalkeeping": 20
+          },
+          "fitness": 98,
+          "morale": 60,
+          "wage": 6272,
+          "value": 7024640
+        },
+        {
+          "id": "p_riv_11",
+          "name": "Kylian Murphy",
+          "nationality": "RUS",
+          "position": "fwd",
+          "attributes": {
+            "pace": 60,
+            "shooting": 74,
+            "passing": 63,
+            "defending": 34,
+            "physical": 70,
+            "goalkeeping": 20
+          },
+          "fitness": 91,
+          "morale": 59,
+          "wage": 7688,
+          "value": 9533120
+        },
+        {
+          "id": "p_riv_12",
+          "name": "Luca Romano",
+          "nationality": "ENG",
+          "position": "mid",
+          "attributes": {
+            "pace": 54,
+            "shooting": 61,
+            "passing": 77,
+            "defending": 44,
+            "physical": 59,
+            "goalkeeping": 20
+          },
+          "fitness": 94,
+          "morale": 62,
+          "wage": 6962,
+          "value": 8215160
+        },
+        {
+          "id": "p_riv_13",
+          "name": "Finn Ivanov",
+          "nationality": "JPN",
+          "position": "gk",
+          "attributes": {
+            "pace": 33,
+            "shooting": 20,
+            "passing": 33,
+            "defending": 38,
+            "physical": 56,
+            "goalkeeping": 54
+          },
+          "fitness": 89,
+          "morale": 76,
+          "wage": 4802,
+          "value": 4705960
+        },
+        {
+          "id": "p_riv_14",
+          "name": "Malik Ivanov",
+          "nationality": "IND",
+          "position": "mid",
+          "attributes": {
+            "pace": 70,
+            "shooting": 53,
+            "passing": 73,
+            "defending": 64,
+            "physical": 66,
+            "goalkeeping": 20
+          },
+          "fitness": 94,
+          "morale": 67,
+          "wage": 7938,
+          "value": 10001880
+        },
+        {
+          "id": "p_riv_15",
+          "name": "Yusuf Toure",
+          "nationality": "GHA",
+          "position": "def",
+          "attributes": {
+            "pace": 77,
+            "shooting": 52,
+            "passing": 68,
+            "defending": 85,
+            "physical": 80,
+            "goalkeeping": 20
+          },
+          "fitness": 95,
+          "morale": 55,
+          "wage": 9522,
+          "value": 13140360
+        },
+        {
+          "id": "p_riv_16",
+          "name": "Callum Murphy",
+          "nationality": "ITA",
+          "position": "fwd",
+          "attributes": {
+            "pace": 81,
+            "shooting": 77,
+            "passing": 69,
+            "defending": 40,
+            "physical": 58,
+            "goalkeeping": 20
+          },
+          "fitness": 92,
+          "morale": 57,
+          "wage": 8712,
+          "value": 11499840
+        },
+        {
+          "id": "p_riv_17",
+          "name": "Ethan Kowalski",
+          "nationality": "IND",
+          "position": "def",
+          "attributes": {
+            "pace": 65,
+            "shooting": 58,
+            "passing": 63,
+            "defending": 92,
+            "physical": 80,
+            "goalkeeping": 30
+          },
+          "fitness": 89,
+          "morale": 78,
+          "wage": 11552,
+          "value": 17559040
+        },
+        {
+          "id": "p_riv_18",
+          "name": "Emeka Bianchi",
+          "nationality": "SEN",
+          "position": "mid",
+          "attributes": {
+            "pace": 84,
+            "shooting": 79,
+            "passing": 93,
+            "defending": 68,
+            "physical": 81,
+            "goalkeeping": 32
+          },
+          "fitness": 98,
+          "morale": 66,
+          "wage": 11552,
+          "value": 17559040
+        },
+        {
+          "id": "p_riv_19",
+          "name": "Declan Tanaka",
+          "nationality": "SEN",
+          "position": "gk",
+          "attributes": {
+            "pace": 51,
+            "shooting": 20,
+            "passing": 44,
+            "defending": 51,
+            "physical": 54,
+            "goalkeeping": 71
+          },
+          "fitness": 92,
+          "morale": 61,
+          "wage": 7442,
+          "value": 9079240
+        },
+        {
+          "id": "p_riv_20",
+          "name": "Vikram Haddad",
+          "nationality": "GHA",
+          "position": "def",
+          "attributes": {
+            "pace": 59,
+            "shooting": 40,
+            "passing": 43,
+            "defending": 67,
+            "physical": 56,
+            "goalkeeping": 20
+          },
+          "fitness": 99,
+          "morale": 80,
+          "wage": 5832,
+          "value": 6298560
+        }
+      ]
+    },
+    {
+      "id": "club_alba",
+      "name": "Alba United",
+      "short_name": "ALB",
+      "reputation": 71,
+      "balance": 2354552,
+      "squad": [
+        {
+          "id": "p_alb_01",
+          "name": "Emeka Aziz",
+          "nationality": "IND",
+          "position": "mid",
+          "attributes": {
+            "pace": 67,
+            "shooting": 68,
+            "passing": 80,
+            "defending": 67,
+            "physical": 74,
+            "goalkeeping": 21
+          },
+          "fitness": 86,
+          "morale": 73,
+          "wage": 9522,
+          "value": 13140360
+        },
+        {
+          "id": "p_alb_02",
+          "name": "Milan Horvat",
+          "nationality": "GER",
+          "position": "def",
+          "attributes": {
+            "pace": 85,
+            "shooting": 53,
+            "passing": 75,
+            "defending": 81,
+            "physical": 78,
+            "goalkeeping": 39
+          },
+          "fitness": 90,
+          "morale": 56,
+          "wage": 12800,
+          "value": 20480000
+        },
+        {
+          "id": "p_alb_03",
+          "name": "Rafael Mbeki",
+          "nationality": "SWE",
+          "position": "def",
+          "attributes": {
+            "pace": 63,
+            "shooting": 50,
+            "passing": 60,
+            "defending": 75,
+            "physical": 77,
+            "goalkeeping": 29
+          },
+          "fitness": 92,
+          "morale": 73,
+          "wage": 10658,
+          "value": 15560680
+        },
+        {
+          "id": "p_alb_04",
+          "name": "Chidi Byrne",
+          "nationality": "IRL",
+          "position": "fwd",
+          "attributes": {
+            "pace": 75,
+            "shooting": 82,
+            "passing": 74,
+            "defending": 59,
+            "physical": 78,
+            "goalkeeping": 30
+          },
+          "fitness": 92,
+          "morale": 63,
+          "wage": 11552,
+          "value": 17559040
+        },
+        {
+          "id": "p_alb_05",
+          "name": "Vikram Marek",
+          "nationality": "SWE",
+          "position": "fwd",
+          "attributes": {
+            "pace": 71,
+            "shooting": 82,
+            "passing": 68,
+            "defending": 46,
+            "physical": 63,
+            "goalkeeping": 20
+          },
+          "fitness": 88,
+          "morale": 57,
+          "wage": 9522,
+          "value": 13140360
+        },
+        {
+          "id": "p_alb_06",
+          "name": "Mohamed Haddad",
+          "nationality": "ENG",
+          "position": "mid",
+          "attributes": {
+            "pace": 70,
+            "shooting": 75,
+            "passing": 84,
+            "defending": 63,
+            "physical": 75,
+            "goalkeeping": 25
+          },
+          "fitness": 94,
+          "morale": 60,
+          "wage": 10952,
+          "value": 16208960
+        },
+        {
+          "id": "p_alb_07",
+          "name": "Diego Mbeki",
+          "nationality": "JPN",
+          "position": "mid",
+          "attributes": {
+            "pace": 78,
+            "shooting": 65,
+            "passing": 89,
+            "defending": 56,
+            "physical": 70,
+            "goalkeeping": 31
+          },
+          "fitness": 93,
+          "morale": 58,
+          "wage": 10082,
+          "value": 14316440
+        },
+        {
+          "id": "p_alb_08",
+          "name": "Chidi Doyle",
+          "nationality": "IRL",
+          "position": "mid",
+          "attributes": {
+            "pace": 78,
+            "shooting": 87,
+            "passing": 91,
+            "defending": 78,
+            "physical": 84,
+            "goalkeeping": 44
+          },
+          "fitness": 91,
+          "morale": 76,
+          "wage": 14450,
+          "value": 24565000
+        },
+        {
+          "id": "p_alb_09",
+          "name": "Liam Sharma",
+          "nationality": "POL",
+          "position": "mid",
+          "attributes": {
+            "pace": 75,
+            "shooting": 78,
+            "passing": 94,
+            "defending": 70,
+            "physical": 68,
+            "goalkeeping": 28
+          },
+          "fitness": 86,
+          "morale": 55,
+          "wage": 11858,
+          "value": 18261320
+        },
+        {
+          "id": "p_alb_10",
+          "name": "Marco Romano",
+          "nationality": "GHA",
+          "position": "def",
+          "attributes": {
+            "pace": 59,
+            "shooting": 47,
+            "passing": 57,
+            "defending": 81,
+            "physical": 77,
+            "goalkeeping": 25
+          },
+          "fitness": 89,
+          "morale": 72,
+          "wage": 8978,
+          "value": 12030520
+        },
+        {
+          "id": "p_alb_11",
+          "name": "Sho Osei",
+          "nationality": "ITA",
+          "position": "def",
+          "attributes": {
+            "pace": 57,
+            "shooting": 34,
+            "passing": 56,
+            "defending": 62,
+            "physical": 56,
+            "goalkeeping": 20
+          },
+          "fitness": 96,
+          "morale": 61,
+          "wage": 6728,
+          "value": 7804480
+        },
+        {
+          "id": "p_alb_12",
+          "name": "Kylian Nkomo",
+          "nationality": "KOR",
+          "position": "fwd",
+          "attributes": {
+            "pace": 83,
+            "shooting": 85,
+            "passing": 74,
+            "defending": 58,
+            "physical": 74,
+            "goalkeeping": 31
+          },
+          "fitness": 98,
+          "morale": 55,
+          "wage": 12168,
+          "value": 18982080
+        },
+        {
+          "id": "p_alb_13",
+          "name": "Wei Fontaine",
+          "nationality": "ITA",
+          "position": "fwd",
+          "attributes": {
+            "pace": 70,
+            "shooting": 79,
+            "passing": 54,
+            "defending": 37,
+            "physical": 59,
+            "goalkeeping": 20
+          },
+          "fitness": 100,
+          "morale": 62,
+          "wage": 7688,
+          "value": 9533120
+        },
+        {
+          "id": "p_alb_14",
+          "name": "Ethan Okafor",
+          "nationality": "FRA",
+          "position": "mid",
+          "attributes": {
+            "pace": 67,
+            "shooting": 59,
+            "passing": 74,
+            "defending": 55,
+            "physical": 60,
+            "goalkeeping": 20
+          },
+          "fitness": 95,
+          "morale": 63,
+          "wage": 7938,
+          "value": 10001880
+        },
+        {
+          "id": "p_alb_15",
+          "name": "Theo Ivanov",
+          "nationality": "IRL",
+          "position": "fwd",
+          "attributes": {
+            "pace": 84,
+            "shooting": 94,
+            "passing": 80,
+            "defending": 67,
+            "physical": 88,
+            "goalkeeping": 44
+          },
+          "fitness": 85,
+          "morale": 58,
+          "wage": 14112,
+          "value": 23708160
+        },
+        {
+          "id": "p_alb_16",
+          "name": "Nikolai Sharma",
+          "nationality": "ENG",
+          "position": "def",
+          "attributes": {
+            "pace": 81,
+            "shooting": 62,
+            "passing": 88,
+            "defending": 93,
+            "physical": 83,
+            "goalkeeping": 36
+          },
+          "fitness": 95,
+          "morale": 68,
+          "wage": 14450,
+          "value": 24565000
+        },
+        {
+          "id": "p_alb_17",
+          "name": "Callum Sharma",
+          "nationality": "BRA",
+          "position": "gk",
+          "attributes": {
+            "pace": 69,
+            "shooting": 27,
+            "passing": 70,
+            "defending": 69,
+            "physical": 76,
+            "goalkeeping": 80
+          },
+          "fitness": 91,
+          "morale": 66,
+          "wage": 11552,
+          "value": 17559040
+        },
+        {
+          "id": "p_alb_18",
+          "name": "Petr Karimi",
+          "nationality": "MAR",
+          "position": "fwd",
+          "attributes": {
+            "pace": 70,
+            "shooting": 84,
+            "passing": 74,
+            "defending": 47,
+            "physical": 65,
+            "goalkeeping": 24
+          },
+          "fitness": 95,
+          "morale": 67,
+          "wage": 9800,
+          "value": 13720000
+        },
+        {
+          "id": "p_alb_19",
+          "name": "Wei Kelly",
+          "nationality": "KOR",
+          "position": "gk",
+          "attributes": {
+            "pace": 65,
+            "shooting": 37,
+            "passing": 65,
+            "defending": 72,
+            "physical": 84,
+            "goalkeeping": 93
+          },
+          "fitness": 94,
+          "morale": 67,
+          "wage": 12482,
+          "value": 19721560
+        },
+        {
+          "id": "p_alb_20",
+          "name": "Nikolai Walsh",
+          "nationality": "IRL",
+          "position": "def",
+          "attributes": {
+            "pace": 62,
+            "shooting": 55,
+            "passing": 68,
+            "defending": 80,
+            "physical": 84,
+            "goalkeeping": 33
+          },
+          "fitness": 99,
+          "morale": 69,
+          "wage": 10952,
+          "value": 16208960
+        }
+      ]
+    },
+    {
+      "id": "club_north_star",
+      "name": "North Star Athletic",
+      "short_name": "NST",
+      "reputation": 55,
+      "balance": 542576,
+      "squad": [
+        {
+          "id": "p_nst_01",
+          "name": "Mohamed Murphy",
+          "nationality": "SWE",
+          "position": "def",
+          "attributes": {
+            "pace": 37,
+            "shooting": 29,
+            "passing": 46,
+            "defending": 44,
+            "physical": 53,
+            "goalkeeping": 20
+          },
+          "fitness": 91,
+          "morale": 77,
+          "wage": 3528,
+          "value": 2963520
+        },
+        {
+          "id": "p_nst_02",
+          "name": "Jack Silva",
+          "nationality": "SEN",
+          "position": "fwd",
+          "attributes": {
+            "pace": 73,
+            "shooting": 82,
+            "passing": 60,
+            "defending": 37,
+            "physical": 59,
+            "goalkeeping": 23
+          },
+          "fitness": 98,
+          "morale": 62,
+          "wage": 7938,
+          "value": 10001880
+        },
+        {
+          "id": "p_nst_03",
+          "name": "Bruno Lefevre",
+          "nationality": "NGA",
+          "position": "gk",
+          "attributes": {
+            "pace": 39,
+            "shooting": 20,
+            "passing": 29,
+            "defending": 40,
+            "physical": 41,
+            "goalkeeping": 57
+          },
+          "fitness": 95,
+          "morale": 85,
+          "wage": 4232,
+          "value": 3893440
+        },
+        {
+          "id": "p_nst_04",
+          "name": "Arjun Farouk",
+          "nationality": "CZE",
+          "position": "fwd",
+          "attributes": {
+            "pace": 77,
+            "shooting": 85,
+            "passing": 63,
+            "defending": 46,
+            "physical": 62,
+            "goalkeeping": 22
+          },
+          "fitness": 93,
+          "morale": 79,
+          "wage": 8450,
+          "value": 10985000
+        },
+        {
+          "id": "p_nst_05",
+          "name": "Callum Aziz",
+          "nationality": "CZE",
+          "position": "mid",
+          "attributes": {
+            "pace": 71,
+            "shooting": 65,
+            "passing": 74,
+            "defending": 58,
+            "physical": 69,
+            "goalkeeping": 20
+          },
+          "fitness": 93,
+          "morale": 65,
+          "wage": 8450,
+          "value": 10985000
+        },
+        {
+          "id": "p_nst_06",
+          "name": "Jack Greco",
+          "nationality": "IND",
+          "position": "fwd",
+          "attributes": {
+            "pace": 66,
+            "shooting": 57,
+            "passing": 40,
+            "defending": 22,
+            "physical": 50,
+            "goalkeeping": 20
+          },
+          "fitness": 87,
+          "morale": 68,
+          "wage": 5202,
+          "value": 5306040
+        },
+        {
+          "id": "p_nst_07",
+          "name": "Theo Chen",
+          "nationality": "FRA",
+          "position": "mid",
+          "attributes": {
+            "pace": 54,
+            "shooting": 56,
+            "passing": 70,
+            "defending": 52,
+            "physical": 45,
+            "goalkeeping": 20
+          },
+          "fitness": 85,
+          "morale": 82,
+          "wage": 5832,
+          "value": 6298560
+        },
+        {
+          "id": "p_nst_08",
+          "name": "Finn Park",
+          "nationality": "MAR",
+          "position": "def",
+          "attributes": {
+            "pace": 75,
+            "shooting": 53,
+            "passing": 69,
+            "defending": 69,
+            "physical": 77,
+            "goalkeeping": 23
+          },
+          "fitness": 92,
+          "morale": 70,
+          "wage": 9522,
+          "value": 13140360
+        },
+        {
+          "id": "p_nst_09",
+          "name": "Ethan Kelly",
+          "nationality": "FRA",
+          "position": "gk",
+          "attributes": {
+            "pace": 33,
+            "shooting": 20,
+            "passing": 45,
+            "defending": 35,
+            "physical": 52,
+            "goalkeeping": 57
+          },
+          "fitness": 90,
+          "morale": 81,
+          "wage": 4608,
+          "value": 4423680
+        },
+        {
+          "id": "p_nst_10",
+          "name": "Tae Conti",
+          "nationality": "NGA",
+          "position": "fwd",
+          "attributes": {
+            "pace": 57,
+            "shooting": 59,
+            "passing": 52,
+            "defending": 22,
+            "physical": 49,
+            "goalkeeping": 20
+          },
+          "fitness": 90,
+          "morale": 56,
+          "wage": 6050,
+          "value": 6655000
+        },
+        {
+          "id": "p_nst_11",
+          "name": "Finn Mbeki",
+          "nationality": "FRA",
+          "position": "mid",
+          "attributes": {
+            "pace": 51,
+            "shooting": 44,
+            "passing": 57,
+            "defending": 48,
+            "physical": 49,
+            "goalkeeping": 20
+          },
+          "fitness": 93,
+          "morale": 79,
+          "wage": 4802,
+          "value": 4705960
+        },
+        {
+          "id": "p_nst_12",
+          "name": "Erik Sato",
+          "nationality": "CZE",
+          "position": "mid",
+          "attributes": {
+            "pace": 70,
+            "shooting": 60,
+            "passing": 71,
+            "defending": 67,
+            "physical": 57,
+            "goalkeeping": 25
+          },
+          "fitness": 87,
+          "morale": 79,
+          "wage": 8978,
+          "value": 12030520
+        },
+        {
+          "id": "p_nst_13",
+          "name": "Tiago Haddad",
+          "nationality": "JPN",
+          "position": "mid",
+          "attributes": {
+            "pace": 52,
+            "shooting": 46,
+            "passing": 70,
+            "defending": 52,
+            "physical": 51,
+            "goalkeeping": 20
+          },
+          "fitness": 100,
+          "morale": 76,
+          "wage": 7442,
+          "value": 9079240
+        },
+        {
+          "id": "p_nst_14",
+          "name": "Nikolai Sokol",
+          "nationality": "SEN",
+          "position": "mid",
+          "attributes": {
+            "pace": 52,
+            "shooting": 35,
+            "passing": 60,
+            "defending": 37,
+            "physical": 45,
+            "goalkeeping": 20
+          },
+          "fitness": 90,
+          "morale": 85,
+          "wage": 3872,
+          "value": 3407360
+        },
+        {
+          "id": "p_nst_15",
+          "name": "Jonas Dvorak",
+          "nationality": "CZE",
+          "position": "def",
+          "attributes": {
+            "pace": 41,
+            "shooting": 22,
+            "passing": 44,
+            "defending": 62,
+            "physical": 59,
+            "goalkeeping": 20
+          },
+          "fitness": 88,
+          "morale": 77,
+          "wage": 5000,
+          "value": 5000000
+        },
+        {
+          "id": "p_nst_16",
+          "name": "Tae Byrne",
+          "nationality": "ENG",
+          "position": "def",
+          "attributes": {
+            "pace": 62,
+            "shooting": 40,
+            "passing": 68,
+            "defending": 66,
+            "physical": 73,
+            "goalkeeping": 23
+          },
+          "fitness": 87,
+          "morale": 71,
+          "wage": 8450,
+          "value": 10985000
+        },
+        {
+          "id": "p_nst_17",
+          "name": "Sho Murphy",
+          "nationality": "NGA",
+          "position": "def",
+          "attributes": {
+            "pace": 59,
+            "shooting": 33,
+            "passing": 59,
+            "defending": 76,
+            "physical": 61,
+            "goalkeeping": 20
+          },
+          "fitness": 89,
+          "morale": 68,
+          "wage": 7442,
+          "value": 9079240
+        },
+        {
+          "id": "p_nst_18",
+          "name": "Hugo Fitzgerald",
+          "nationality": "SWE",
+          "position": "fwd",
+          "attributes": {
+            "pace": 60,
+            "shooting": 58,
+            "passing": 50,
+            "defending": 28,
+            "physical": 52,
+            "goalkeeping": 20
+          },
+          "fitness": 93,
+          "morale": 65,
+          "wage": 4232,
+          "value": 3893440
+        },
+        {
+          "id": "p_nst_19",
+          "name": "Dmitri Marek",
+          "nationality": "FRA",
+          "position": "fwd",
+          "attributes": {
+            "pace": 73,
+            "shooting": 74,
+            "passing": 61,
+            "defending": 49,
+            "physical": 67,
+            "goalkeeping": 25
+          },
+          "fitness": 95,
+          "morale": 55,
+          "wage": 9248,
+          "value": 12577280
+        },
+        {
+          "id": "p_nst_20",
+          "name": "Haruto Rahman",
+          "nationality": "ARG",
+          "position": "def",
+          "attributes": {
+            "pace": 54,
+            "shooting": 33,
+            "passing": 56,
+            "defending": 62,
+            "physical": 64,
+            "goalkeeping": 20
+          },
+          "fitness": 93,
+          "morale": 72,
+          "wage": 6272,
+          "value": 7024640
+        }
+      ]
+    },
+    {
+      "id": "club_ironbridge",
+      "name": "Ironbridge Town",
+      "short_name": "IRB",
+      "reputation": 48,
+      "balance": 992688,
+      "squad": [
+        {
+          "id": "p_irb_01",
+          "name": "Rory Volkov",
+          "nationality": "IRL",
+          "position": "def",
+          "attributes": {
+            "pace": 49,
+            "shooting": 26,
+            "passing": 43,
+            "defending": 59,
+            "physical": 51,
+            "goalkeeping": 20
+          },
+          "fitness": 96,
+          "morale": 77,
+          "wage": 3698,
+          "value": 3180280
+        },
+        {
+          "id": "p_irb_02",
+          "name": "Kenji Romano",
+          "nationality": "NED",
+          "position": "fwd",
+          "attributes": {
+            "pace": 54,
+            "shooting": 61,
+            "passing": 41,
+            "defending": 22,
+            "physical": 43,
+            "goalkeeping": 20
+          },
+          "fitness": 90,
+          "morale": 61,
+          "wage": 4608,
+          "value": 4423680
+        },
+        {
+          "id": "p_irb_03",
+          "name": "Theo Okafor",
+          "nationality": "RUS",
+          "position": "def",
+          "attributes": {
+            "pace": 43,
+            "shooting": 20,
+            "passing": 43,
+            "defending": 56,
+            "physical": 46,
+            "goalkeeping": 20
+          },
+          "fitness": 92,
+          "morale": 66,
+          "wage": 3200,
+          "value": 2560000
+        },
+        {
+          "id": "p_irb_04",
+          "name": "Andrei Aziz",
+          "nationality": "JPN",
+          "position": "mid",
+          "attributes": {
+            "pace": 38,
+            "shooting": 24,
+            "passing": 45,
+            "defending": 32,
+            "physical": 30,
+            "goalkeeping": 20
+          },
+          "fitness": 100,
+          "morale": 58,
+          "wage": 3042,
+          "value": 2372760
+        },
+        {
+          "id": "p_irb_05",
+          "name": "Haruto Mensah",
+          "nationality": "ITA",
+          "position": "gk",
+          "attributes": {
+            "pace": 38,
+            "shooting": 20,
+            "passing": 52,
+            "defending": 63,
+            "physical": 68,
+            "goalkeeping": 72
+          },
+          "fitness": 93,
+          "morale": 85,
+          "wage": 7442,
+          "value": 9079240
+        },
+        {
+          "id": "p_irb_06",
+          "name": "Dmitri Murphy",
+          "nationality": "ITA",
+          "position": "fwd",
+          "attributes": {
+            "pace": 74,
+            "shooting": 68,
+            "passing": 48,
+            "defending": 40,
+            "physical": 68,
+            "goalkeeping": 20
+          },
+          "fitness": 89,
+          "morale": 59,
+          "wage": 7442,
+          "value": 9079240
+        },
+        {
+          "id": "p_irb_07",
+          "name": "Finn Chen",
+          "nationality": "ARG",
+          "position": "fwd",
+          "attributes": {
+            "pace": 75,
+            "shooting": 72,
+            "passing": 46,
+            "defending": 33,
+            "physical": 54,
+            "goalkeeping": 20
+          },
+          "fitness": 92,
+          "morale": 79,
+          "wage": 6962,
+          "value": 8215160
+        },
+        {
+          "id": "p_irb_08",
+          "name": "Dmitri Marek",
+          "nationality": "ITA",
+          "position": "gk",
+          "attributes": {
+            "pace": 39,
+            "shooting": 20,
+            "passing": 46,
+            "defending": 46,
+            "physical": 55,
+            "goalkeeping": 58
+          },
+          "fitness": 88,
+          "morale": 85,
+          "wage": 5000,
+          "value": 5000000
+        },
+        {
+          "id": "p_irb_09",
+          "name": "Yusuf Mensah",
+          "nationality": "NED",
+          "position": "mid",
+          "attributes": {
+            "pace": 54,
+            "shooting": 63,
+            "passing": 66,
+            "defending": 51,
+            "physical": 50,
+            "goalkeeping": 20
+          },
+          "fitness": 87,
+          "morale": 60,
+          "wage": 6728,
+          "value": 7804480
+        },
+        {
+          "id": "p_irb_10",
+          "name": "Omar Doyle",
+          "nationality": "RUS",
+          "position": "mid",
+          "attributes": {
+            "pace": 38,
+            "shooting": 34,
+            "passing": 52,
+            "defending": 29,
+            "physical": 26,
+            "goalkeeping": 20
+          },
+          "fitness": 99,
+          "morale": 57,
+          "wage": 2450,
+          "value": 1715000
+        },
+        {
+          "id": "p_irb_11",
+          "name": "Pavel Toure",
+          "nationality": "JPN",
+          "position": "fwd",
+          "attributes": {
+            "pace": 60,
+            "shooting": 67,
+            "passing": 60,
+            "defending": 28,
+            "physical": 60,
+            "goalkeeping": 20
+          },
+          "fitness": 93,
+          "morale": 81,
+          "wage": 6050,
+          "value": 6655000
+        },
+        {
+          "id": "p_irb_12",
+          "name": "Rafael Rao",
+          "nationality": "RUS",
+          "position": "def",
+          "attributes": {
+            "pace": 28,
+            "shooting": 20,
+            "passing": 28,
+            "defending": 47,
+            "physical": 44,
+            "goalkeeping": 20
+          },
+          "fitness": 97,
+          "morale": 85,
+          "wage": 2888,
+          "value": 2194880
+        },
+        {
+          "id": "p_irb_13",
+          "name": "Sven Mbeki",
+          "nationality": "MAR",
+          "position": "mid",
+          "attributes": {
+            "pace": 48,
+            "shooting": 44,
+            "passing": 59,
+            "defending": 41,
+            "physical": 34,
+            "goalkeeping": 20
+          },
+          "fitness": 95,
+          "morale": 74,
+          "wage": 3528,
+          "value": 2963520
+        },
+        {
+          "id": "p_irb_14",
+          "name": "Hugo Rahman",
+          "nationality": "SWE",
+          "position": "mid",
+          "attributes": {
+            "pace": 32,
+            "shooting": 29,
+            "passing": 51,
+            "defending": 45,
+            "physical": 32,
+            "goalkeeping": 20
+          },
+          "fitness": 86,
+          "morale": 79,
+          "wage": 3528,
+          "value": 2963520
+        },
+        {
+          "id": "p_irb_15",
+          "name": "Igor Sharma",
+          "nationality": "ESP",
+          "position": "fwd",
+          "attributes": {
+            "pace": 61,
+            "shooting": 77,
+            "passing": 59,
+            "defending": 39,
+            "physical": 58,
+            "goalkeeping": 20
+          },
+          "fitness": 87,
+          "morale": 70,
+          "wage": 6728,
+          "value": 7804480
+        },
+        {
+          "id": "p_irb_16",
+          "name": "Min Ryan",
+          "nationality": "ESP",
+          "position": "mid",
+          "attributes": {
+            "pace": 48,
+            "shooting": 40,
+            "passing": 57,
+            "defending": 33,
+            "physical": 40,
+            "goalkeeping": 20
+          },
+          "fitness": 94,
+          "morale": 76,
+          "wage": 4050,
+          "value": 3645000
+        },
+        {
+          "id": "p_irb_17",
+          "name": "Kenji Romano",
+          "nationality": "FRA",
+          "position": "def",
+          "attributes": {
+            "pace": 51,
+            "shooting": 20,
+            "passing": 45,
+            "defending": 48,
+            "physical": 53,
+            "goalkeeping": 20
+          },
+          "fitness": 85,
+          "morale": 76,
+          "wage": 4232,
+          "value": 3893440
+        },
+        {
+          "id": "p_irb_18",
+          "name": "Sho Marek",
+          "nationality": "ESP",
+          "position": "def",
+          "attributes": {
+            "pace": 66,
+            "shooting": 47,
+            "passing": 59,
+            "defending": 62,
+            "physical": 64,
+            "goalkeeping": 20
+          },
+          "fitness": 99,
+          "morale": 79,
+          "wage": 7442,
+          "value": 9079240
+        },
+        {
+          "id": "p_irb_19",
+          "name": "Mohamed Ryan",
+          "nationality": "ESP",
+          "position": "def",
+          "attributes": {
+            "pace": 29,
+            "shooting": 20,
+            "passing": 37,
+            "defending": 39,
+            "physical": 41,
+            "goalkeeping": 20
+          },
+          "fitness": 88,
+          "morale": 55,
+          "wage": 2450,
+          "value": 1715000
+        },
+        {
+          "id": "p_irb_20",
+          "name": "Min Rossi",
+          "nationality": "CZE",
+          "position": "fwd",
+          "attributes": {
+            "pace": 71,
+            "shooting": 65,
+            "passing": 44,
+            "defending": 30,
+            "physical": 46,
+            "goalkeeping": 20
+          },
+          "fitness": 88,
+          "morale": 69,
+          "wage": 5832,
+          "value": 6298560
+        }
+      ]
+    },
+    {
+      "id": "club_del_mar",
+      "name": "Del Mar CF",
+      "short_name": "DMC",
+      "reputation": 68,
+      "balance": 656078,
+      "squad": [
+        {
+          "id": "p_dmc_01",
+          "name": "Declan Karimi",
+          "nationality": "SWE",
+          "position": "fwd",
+          "attributes": {
+            "pace": 89,
+            "shooting": 92,
+            "passing": 79,
+            "defending": 53,
+            "physical": 70,
+            "goalkeeping": 32
+          },
+          "fitness": 100,
+          "morale": 82,
+          "wage": 12168,
+          "value": 18982080
+        },
+        {
+          "id": "p_dmc_02",
+          "name": "Malik Nakamura",
+          "nationality": "IND",
+          "position": "fwd",
+          "attributes": {
+            "pace": 70,
+            "shooting": 77,
+            "passing": 54,
+            "defending": 35,
+            "physical": 62,
+            "goalkeeping": 20
+          },
+          "fitness": 92,
+          "morale": 73,
+          "wage": 6728,
+          "value": 7804480
+        },
+        {
+          "id": "p_dmc_03",
+          "name": "Yassin Lefevre",
+          "nationality": "FRA",
+          "position": "gk",
+          "attributes": {
+            "pace": 50,
+            "shooting": 22,
+            "passing": 49,
+            "defending": 63,
+            "physical": 73,
+            "goalkeeping": 81
+          },
+          "fitness": 97,
+          "morale": 76,
+          "wage": 8712,
+          "value": 11499840
+        },
+        {
+          "id": "p_dmc_04",
+          "name": "Igor Tanaka",
+          "nationality": "SEN",
+          "position": "def",
+          "attributes": {
+            "pace": 87,
+            "shooting": 55,
+            "passing": 79,
+            "defending": 80,
+            "physical": 80,
+            "goalkeeping": 37
+          },
+          "fitness": 99,
+          "morale": 58,
+          "wage": 12482,
+          "value": 19721560
+        },
+        {
+          "id": "p_dmc_05",
+          "name": "Milan Moreau",
+          "nationality": "POL",
+          "position": "fwd",
+          "attributes": {
+            "pace": 82,
+            "shooting": 74,
+            "passing": 59,
+            "defending": 50,
+            "physical": 66,
+            "goalkeeping": 21
+          },
+          "fitness": 95,
+          "morale": 74,
+          "wage": 9800,
+          "value": 13720000
+        },
+        {
+          "id": "p_dmc_06",
+          "name": "Liam Doyle",
+          "nationality": "ESP",
+          "position": "gk",
+          "attributes": {
+            "pace": 65,
+            "shooting": 36,
+            "passing": 60,
+            "defending": 73,
+            "physical": 80,
+            "goalkeeping": 85
+          },
+          "fitness": 86,
+          "morale": 74,
+          "wage": 11552,
+          "value": 17559040
+        },
+        {
+          "id": "p_dmc_07",
+          "name": "Diego Brennan",
+          "nationality": "SEN",
+          "position": "mid",
+          "attributes": {
+            "pace": 53,
+            "shooting": 61,
+            "passing": 67,
+            "defending": 48,
+            "physical": 48,
+            "goalkeeping": 20
+          },
+          "fitness": 99,
+          "morale": 60,
+          "wage": 6272,
+          "value": 7024640
+        },
+        {
+          "id": "p_dmc_08",
+          "name": "Ren Kim",
+          "nationality": "MAR",
+          "position": "def",
+          "attributes": {
+            "pace": 73,
+            "shooting": 48,
+            "passing": 62,
+            "defending": 86,
+            "physical": 74,
+            "goalkeeping": 30
+          },
+          "fitness": 89,
+          "morale": 62,
+          "wage": 11552,
+          "value": 17559040
+        },
+        {
+          "id": "p_dmc_09",
+          "name": "Kylian Park",
+          "nationality": "ARG",
+          "position": "fwd",
+          "attributes": {
+            "pace": 81,
+            "shooting": 79,
+            "passing": 60,
+            "defending": 42,
+            "physical": 64,
+            "goalkeeping": 29
+          },
+          "fitness": 92,
+          "morale": 70,
+          "wage": 9800,
+          "value": 13720000
+        },
+        {
+          "id": "p_dmc_10",
+          "name": "Amir Byrne",
+          "nationality": "BRA",
+          "position": "mid",
+          "attributes": {
+            "pace": 66,
+            "shooting": 64,
+            "passing": 88,
+            "defending": 77,
+            "physical": 70,
+            "goalkeeping": 29
+          },
+          "fitness": 99,
+          "morale": 83,
+          "wage": 10368,
+          "value": 14929920
+        },
+        {
+          "id": "p_dmc_11",
+          "name": "Hassan Murphy",
+          "nationality": "MAR",
+          "position": "def",
+          "attributes": {
+            "pace": 68,
+            "shooting": 40,
+            "passing": 50,
+            "defending": 77,
+            "physical": 71,
+            "goalkeeping": 22
+          },
+          "fitness": 93,
+          "morale": 69,
+          "wage": 7938,
+          "value": 10001880
+        },
+        {
+          "id": "p_dmc_12",
+          "name": "Wei Kuznetsov",
+          "nationality": "ENG",
+          "position": "mid",
+          "attributes": {
+            "pace": 80,
+            "shooting": 72,
+            "passing": 94,
+            "defending": 81,
+            "physical": 74,
+            "goalkeeping": 34
+          },
+          "fitness": 94,
+          "morale": 77,
+          "wage": 13122,
+          "value": 21257640
+        },
+        {
+          "id": "p_dmc_13",
+          "name": "Rory Kowalski",
+          "nationality": "RUS",
+          "position": "def",
+          "attributes": {
+            "pace": 51,
+            "shooting": 47,
+            "passing": 56,
+            "defending": 63,
+            "physical": 61,
+            "goalkeeping": 22
+          },
+          "fitness": 92,
+          "morale": 74,
+          "wage": 7938,
+          "value": 10001880
+        },
+        {
+          "id": "p_dmc_14",
+          "name": "Finn Fitzgerald",
+          "nationality": "JPN",
+          "position": "mid",
+          "attributes": {
+            "pace": 80,
+            "shooting": 71,
+            "passing": 87,
+            "defending": 83,
+            "physical": 77,
+            "goalkeeping": 39
+          },
+          "fitness": 88,
+          "morale": 83,
+          "wage": 12482,
+          "value": 19721560
+        },
+        {
+          "id": "p_dmc_15",
+          "name": "Sho Fitzgerald",
+          "nationality": "JPN",
+          "position": "def",
+          "attributes": {
+            "pace": 82,
+            "shooting": 47,
+            "passing": 68,
+            "defending": 88,
+            "physical": 72,
+            "goalkeeping": 33
+          },
+          "fitness": 87,
+          "morale": 84,
+          "wage": 10952,
+          "value": 16208960
+        },
+        {
+          "id": "p_dmc_16",
+          "name": "Mohamed Kim",
+          "nationality": "GER",
+          "position": "mid",
+          "attributes": {
+            "pace": 63,
+            "shooting": 61,
+            "passing": 70,
+            "defending": 54,
+            "physical": 57,
+            "goalkeeping": 21
+          },
+          "fitness": 93,
+          "morale": 81,
+          "wage": 7938,
+          "value": 10001880
+        },
+        {
+          "id": "p_dmc_17",
+          "name": "Jonas Greco",
+          "nationality": "CZE",
+          "position": "fwd",
+          "attributes": {
+            "pace": 65,
+            "shooting": 78,
+            "passing": 53,
+            "defending": 36,
+            "physical": 54,
+            "goalkeeping": 20
+          },
+          "fitness": 97,
+          "morale": 85,
+          "wage": 6962,
+          "value": 8215160
+        },
+        {
+          "id": "p_dmc_18",
+          "name": "Pavel Romano",
+          "nationality": "NGA",
+          "position": "mid",
+          "attributes": {
+            "pace": 88,
+            "shooting": 77,
+            "passing": 85,
+            "defending": 78,
+            "physical": 71,
+            "goalkeeping": 35
+          },
+          "fitness": 96,
+          "morale": 76,
+          "wage": 13122,
+          "value": 21257640
+        },
+        {
+          "id": "p_dmc_19",
+          "name": "Samuel Novak",
+          "nationality": "BRA",
+          "position": "fwd",
+          "attributes": {
+            "pace": 83,
+            "shooting": 93,
+            "passing": 82,
+            "defending": 55,
+            "physical": 72,
+            "goalkeeping": 37
+          },
+          "fitness": 95,
+          "morale": 84,
+          "wage": 11858,
+          "value": 18261320
+        },
+        {
+          "id": "p_dmc_20",
+          "name": "Min Romano",
+          "nationality": "JPN",
+          "position": "def",
+          "attributes": {
+            "pace": 68,
+            "shooting": 47,
+            "passing": 78,
+            "defending": 87,
+            "physical": 79,
+            "goalkeeping": 33
+          },
+          "fitness": 86,
+          "morale": 85,
+          "wage": 10658,
+          "value": 15560680
+        }
+      ]
+    },
+    {
+      "id": "club_highfield",
+      "name": "Highfield Rovers",
+      "short_name": "HFR",
+      "reputation": 51,
+      "balance": 1793604,
+      "squad": [
+        {
+          "id": "p_hfr_01",
+          "name": "Chidi Patel",
+          "nationality": "NGA",
+          "position": "mid",
+          "attributes": {
+            "pace": 68,
+            "shooting": 67,
+            "passing": 78,
+            "defending": 56,
+            "physical": 54,
+            "goalkeeping": 20
+          },
+          "fitness": 92,
+          "morale": 82,
+          "wage": 7938,
+          "value": 10001880
+        },
+        {
+          "id": "p_hfr_02",
+          "name": "Idris Okafor",
+          "nationality": "SEN",
+          "position": "gk",
+          "attributes": {
+            "pace": 28,
+            "shooting": 20,
+            "passing": 41,
+            "defending": 46,
+            "physical": 41,
+            "goalkeeping": 58
+          },
+          "fitness": 99,
+          "morale": 57,
+          "wage": 4608,
+          "value": 4423680
+        },
+        {
+          "id": "p_hfr_03",
+          "name": "Bruno Moreau",
+          "nationality": "SWE",
+          "position": "mid",
+          "attributes": {
+            "pace": 54,
+            "shooting": 63,
+            "passing": 60,
+            "defending": 44,
+            "physical": 58,
+            "goalkeeping": 20
+          },
+          "fitness": 91,
+          "morale": 57,
+          "wage": 6728,
+          "value": 7804480
+        },
+        {
+          "id": "p_hfr_04",
+          "name": "Sean Greco",
+          "nationality": "ARG",
+          "position": "fwd",
+          "attributes": {
+            "pace": 78,
+            "shooting": 73,
+            "passing": 66,
+            "defending": 36,
+            "physical": 62,
+            "goalkeeping": 20
+          },
+          "fitness": 85,
+          "morale": 63,
+          "wage": 7938,
+          "value": 10001880
+        },
+        {
+          "id": "p_hfr_05",
+          "name": "Kylian Santos",
+          "nationality": "JPN",
+          "position": "gk",
+          "attributes": {
+            "pace": 45,
+            "shooting": 20,
+            "passing": 54,
+            "defending": 56,
+            "physical": 59,
+            "goalkeeping": 78
+          },
+          "fitness": 85,
+          "morale": 66,
+          "wage": 8192,
+          "value": 10485760
+        },
+        {
+          "id": "p_hfr_06",
+          "name": "Bruno Connolly",
+          "nationality": "MAR",
+          "position": "fwd",
+          "attributes": {
+            "pace": 67,
+            "shooting": 76,
+            "passing": 47,
+            "defending": 34,
+            "physical": 62,
+            "goalkeeping": 20
+          },
+          "fitness": 88,
+          "morale": 78,
+          "wage": 7688,
+          "value": 9533120
+        },
+        {
+          "id": "p_hfr_07",
+          "name": "Petr Toure",
+          "nationality": "ARG",
+          "position": "def",
+          "attributes": {
+            "pace": 42,
+            "shooting": 25,
+            "passing": 35,
+            "defending": 55,
+            "physical": 39,
+            "goalkeeping": 20
+          },
+          "fitness": 86,
+          "morale": 78,
+          "wage": 3042,
+          "value": 2372760
+        },
+        {
+          "id": "p_hfr_08",
+          "name": "Milan Rousseau",
+          "nationality": "FRA",
+          "position": "mid",
+          "attributes": {
+            "pace": 68,
+            "shooting": 56,
+            "passing": 78,
+            "defending": 67,
+            "physical": 52,
+            "goalkeeping": 20
+          },
+          "fitness": 98,
+          "morale": 76,
+          "wage": 7688,
+          "value": 9533120
+        },
+        {
+          "id": "p_hfr_09",
+          "name": "Tiago Ferreira",
+          "nationality": "JPN",
+          "position": "mid",
+          "attributes": {
+            "pace": 45,
+            "shooting": 39,
+            "passing": 44,
+            "defending": 27,
+            "physical": 40,
+            "goalkeeping": 20
+          },
+          "fitness": 93,
+          "morale": 74,
+          "wage": 3200,
+          "value": 2560000
+        },
+        {
+          "id": "p_hfr_10",
+          "name": "Petr Sokol",
+          "nationality": "MAR",
+          "position": "def",
+          "attributes": {
+            "pace": 63,
+            "shooting": 39,
+            "passing": 54,
+            "defending": 73,
+            "physical": 63,
+            "goalkeeping": 20
+          },
+          "fitness": 88,
+          "morale": 80,
+          "wage": 6498,
+          "value": 7407720
+        },
+        {
+          "id": "p_hfr_11",
+          "name": "Haruto Girard",
+          "nationality": "NGA",
+          "position": "fwd",
+          "attributes": {
+            "pace": 60,
+            "shooting": 69,
+            "passing": 57,
+            "defending": 40,
+            "physical": 58,
+            "goalkeeping": 20
+          },
+          "fitness": 97,
+          "morale": 68,
+          "wage": 6962,
+          "value": 8215160
+        },
+        {
+          "id": "p_hfr_12",
+          "name": "Tiago Kelly",
+          "nationality": "ESP",
+          "position": "def",
+          "attributes": {
+            "pace": 51,
+            "shooting": 42,
+            "passing": 58,
+            "defending": 70,
+            "physical": 65,
+            "goalkeeping": 20
+          },
+          "fitness": 87,
+          "morale": 57,
+          "wage": 7200,
+          "value": 8640000
+        },
+        {
+          "id": "p_hfr_13",
+          "name": "Andrei Almeida",
+          "nationality": "SWE",
+          "position": "def",
+          "attributes": {
+            "pace": 53,
+            "shooting": 37,
+            "passing": 61,
+            "defending": 66,
+            "physical": 71,
+            "goalkeeping": 20
+          },
+          "fitness": 95,
+          "morale": 76,
+          "wage": 7938,
+          "value": 10001880
+        },
+        {
+          "id": "p_hfr_14",
+          "name": "Hassan Sato",
+          "nationality": "SEN",
+          "position": "mid",
+          "attributes": {
+            "pace": 43,
+            "shooting": 36,
+            "passing": 55,
+            "defending": 26,
+            "physical": 39,
+            "goalkeeping": 20
+          },
+          "fitness": 91,
+          "morale": 59,
+          "wage": 3200,
+          "value": 2560000
+        },
+        {
+          "id": "p_hfr_15",
+          "name": "Finn Rahman",
+          "nationality": "SWE",
+          "position": "fwd",
+          "attributes": {
+            "pace": 71,
+            "shooting": 69,
+            "passing": 46,
+            "defending": 36,
+            "physical": 61,
+            "goalkeeping": 20
+          },
+          "fitness": 92,
+          "morale": 80,
+          "wage": 6728,
+          "value": 7804480
+        },
+        {
+          "id": "p_hfr_16",
+          "name": "Idris Ryan",
+          "nationality": "RUS",
+          "position": "def",
+          "attributes": {
+            "pace": 55,
+            "shooting": 22,
+            "passing": 54,
+            "defending": 58,
+            "physical": 47,
+            "goalkeeping": 20
+          },
+          "fitness": 95,
+          "morale": 66,
+          "wage": 5000,
+          "value": 5000000
+        },
+        {
+          "id": "p_hfr_17",
+          "name": "Rory Murphy",
+          "nationality": "BRA",
+          "position": "fwd",
+          "attributes": {
+            "pace": 40,
+            "shooting": 45,
+            "passing": 40,
+            "defending": 20,
+            "physical": 31,
+            "goalkeeping": 20
+          },
+          "fitness": 87,
+          "morale": 78,
+          "wage": 2738,
+          "value": 2026120
+        },
+        {
+          "id": "p_hfr_18",
+          "name": "Sho Karimi",
+          "nationality": "IRL",
+          "position": "def",
+          "attributes": {
+            "pace": 47,
+            "shooting": 37,
+            "passing": 51,
+            "defending": 67,
+            "physical": 60,
+            "goalkeeping": 20
+          },
+          "fitness": 87,
+          "morale": 83,
+          "wage": 5618,
+          "value": 5955080
+        },
+        {
+          "id": "p_hfr_19",
+          "name": "Arjun Byrne",
+          "nationality": "MAR",
+          "position": "fwd",
+          "attributes": {
+            "pace": 40,
+            "shooting": 47,
+            "passing": 42,
+            "defending": 20,
+            "physical": 32,
+            "goalkeeping": 20
+          },
+          "fitness": 100,
+          "morale": 74,
+          "wage": 2888,
+          "value": 2194880
+        },
+        {
+          "id": "p_hfr_20",
+          "name": "Tae Romano",
+          "nationality": "RUS",
+          "position": "mid",
+          "attributes": {
+            "pace": 54,
+            "shooting": 44,
+            "passing": 59,
+            "defending": 52,
+            "physical": 44,
+            "goalkeeping": 20
+          },
+          "fitness": 100,
+          "morale": 71,
+          "wage": 5202,
+          "value": 5306040
+        }
+      ]
+    },
+    {
+      "id": "club_easton",
+      "name": "Easton City",
+      "short_name": "EAC",
+      "reputation": 74,
+      "balance": 2663880,
+      "squad": [
+        {
+          "id": "p_eac_01",
+          "name": "Tae Santos",
+          "nationality": "NGA",
+          "position": "mid",
+          "attributes": {
+            "pace": 74,
+            "shooting": 78,
+            "passing": 90,
+            "defending": 64,
+            "physical": 79,
+            "goalkeeping": 27
+          },
+          "fitness": 87,
+          "morale": 82,
+          "wage": 11858,
+          "value": 18261320
+        },
+        {
+          "id": "p_eac_02",
+          "name": "Rafael Wong",
+          "nationality": "BRA",
+          "position": "mid",
+          "attributes": {
+            "pace": 78,
+            "shooting": 68,
+            "passing": 84,
+            "defending": 75,
+            "physical": 73,
+            "goalkeeping": 24
+          },
+          "fitness": 95,
+          "morale": 60,
+          "wage": 9800,
+          "value": 13720000
+        },
+        {
+          "id": "p_eac_03",
+          "name": "Yusuf Sharma",
+          "nationality": "SWE",
+          "position": "def",
+          "attributes": {
+            "pace": 92,
+            "shooting": 71,
+            "passing": 81,
+            "defending": 87,
+            "physical": 94,
+            "goalkeeping": 36
+          },
+          "fitness": 97,
+          "morale": 71,
+          "wage": 14450,
+          "value": 24565000
+        },
+        {
+          "id": "p_eac_04",
+          "name": "Jonas Horvat",
+          "nationality": "SEN",
+          "position": "fwd",
+          "attributes": {
+            "pace": 72,
+            "shooting": 75,
+            "passing": 57,
+            "defending": 36,
+            "physical": 64,
+            "goalkeeping": 20
+          },
+          "fitness": 91,
+          "morale": 83,
+          "wage": 7688,
+          "value": 9533120
+        },
+        {
+          "id": "p_eac_05",
+          "name": "Amir Okafor",
+          "nationality": "KOR",
+          "position": "mid",
+          "attributes": {
+            "pace": 85,
+            "shooting": 80,
+            "passing": 90,
+            "defending": 76,
+            "physical": 77,
+            "goalkeeping": 36
+          },
+          "fitness": 89,
+          "morale": 79,
+          "wage": 14112,
+          "value": 23708160
+        },
+        {
+          "id": "p_eac_06",
+          "name": "Finn Dvorak",
+          "nationality": "NGA",
+          "position": "fwd",
+          "attributes": {
+            "pace": 94,
+            "shooting": 90,
+            "passing": 74,
+            "defending": 66,
+            "physical": 90,
+            "goalkeeping": 43
+          },
+          "fitness": 95,
+          "morale": 82,
+          "wage": 14112,
+          "value": 23708160
+        },
+        {
+          "id": "p_eac_07",
+          "name": "Liam Karimi",
+          "nationality": "POL",
+          "position": "fwd",
+          "attributes": {
+            "pace": 88,
+            "shooting": 88,
+            "passing": 79,
+            "defending": 49,
+            "physical": 87,
+            "goalkeeping": 37
+          },
+          "fitness": 86,
+          "morale": 66,
+          "wage": 12800,
+          "value": 20480000
+        },
+        {
+          "id": "p_eac_08",
+          "name": "Sho Bernard",
+          "nationality": "RUS",
+          "position": "fwd",
+          "attributes": {
+            "pace": 76,
+            "shooting": 89,
+            "passing": 75,
+            "defending": 57,
+            "physical": 69,
+            "goalkeeping": 26
+          },
+          "fitness": 87,
+          "morale": 75,
+          "wage": 11552,
+          "value": 17559040
+        },
+        {
+          "id": "p_eac_09",
+          "name": "Yassin Lefevre",
+          "nationality": "SWE",
+          "position": "def",
+          "attributes": {
+            "pace": 77,
+            "shooting": 75,
+            "passing": 84,
+            "defending": 94,
+            "physical": 85,
+            "goalkeeping": 44
+          },
+          "fitness": 91,
+          "morale": 65,
+          "wage": 15138,
+          "value": 26340120
+        },
+        {
+          "id": "p_eac_10",
+          "name": "Julien Osei",
+          "nationality": "IRL",
+          "position": "mid",
+          "attributes": {
+            "pace": 84,
+            "shooting": 80,
+            "passing": 85,
+            "defending": 65,
+            "physical": 83,
+            "goalkeeping": 30
+          },
+          "fitness": 87,
+          "morale": 71,
+          "wage": 12482,
+          "value": 19721560
+        },
+        {
+          "id": "p_eac_11",
+          "name": "Viktor Marek",
+          "nationality": "KOR",
+          "position": "mid",
+          "attributes": {
+            "pace": 75,
+            "shooting": 66,
+            "passing": 89,
+            "defending": 79,
+            "physical": 84,
+            "goalkeeping": 38
+          },
+          "fitness": 96,
+          "morale": 66,
+          "wage": 12800,
+          "value": 20480000
+        },
+        {
+          "id": "p_eac_12",
+          "name": "Haruto Bianchi",
+          "nationality": "NED",
+          "position": "def",
+          "attributes": {
+            "pace": 69,
+            "shooting": 54,
+            "passing": 64,
+            "defending": 70,
+            "physical": 76,
+            "goalkeeping": 20
+          },
+          "fitness": 97,
+          "morale": 64,
+          "wage": 9522,
+          "value": 13140360
+        },
+        {
+          "id": "p_eac_13",
+          "name": "Hassan Walsh",
+          "nationality": "FRA",
+          "position": "fwd",
+          "attributes": {
+            "pace": 85,
+            "shooting": 76,
+            "passing": 63,
+            "defending": 37,
+            "physical": 64,
+            "goalkeeping": 23
+          },
+          "fitness": 89,
+          "morale": 74,
+          "wage": 9248,
+          "value": 12577280
+        },
+        {
+          "id": "p_eac_14",
+          "name": "Ethan Ryan",
+          "nationality": "GER",
+          "position": "def",
+          "attributes": {
+            "pace": 72,
+            "shooting": 63,
+            "passing": 84,
+            "defending": 94,
+            "physical": 89,
+            "goalkeeping": 34
+          },
+          "fitness": 87,
+          "morale": 75,
+          "wage": 13448,
+          "value": 22054720
+        },
+        {
+          "id": "p_eac_15",
+          "name": "Kofi Diallo",
+          "nationality": "IRL",
+          "position": "def",
+          "attributes": {
+            "pace": 82,
+            "shooting": 69,
+            "passing": 77,
+            "defending": 81,
+            "physical": 89,
+            "goalkeeping": 35
+          },
+          "fitness": 100,
+          "morale": 61,
+          "wage": 13122,
+          "value": 21257640
+        },
+        {
+          "id": "p_eac_16",
+          "name": "Sean Ivanov",
+          "nationality": "GER",
+          "position": "gk",
+          "attributes": {
+            "pace": 48,
+            "shooting": 20,
+            "passing": 51,
+            "defending": 63,
+            "physical": 62,
+            "goalkeeping": 79
+          },
+          "fitness": 86,
+          "morale": 76,
+          "wage": 8978,
+          "value": 12030520
+        },
+        {
+          "id": "p_eac_17",
+          "name": "Kofi Bernard",
+          "nationality": "ARG",
+          "position": "fwd",
+          "attributes": {
+            "pace": 87,
+            "shooting": 78,
+            "passing": 74,
+            "defending": 49,
+            "physical": 66,
+            "goalkeeping": 22
+          },
+          "fitness": 90,
+          "morale": 78,
+          "wage": 9800,
+          "value": 13720000
+        },
+        {
+          "id": "p_eac_18",
+          "name": "Omar Brennan",
+          "nationality": "NGA",
+          "position": "mid",
+          "attributes": {
+            "pace": 65,
+            "shooting": 72,
+            "passing": 87,
+            "defending": 66,
+            "physical": 78,
+            "goalkeeping": 33
+          },
+          "fitness": 92,
+          "morale": 72,
+          "wage": 10952,
+          "value": 16208960
+        },
+        {
+          "id": "p_eac_19",
+          "name": "Sean Aziz",
+          "nationality": "FRA",
+          "position": "def",
+          "attributes": {
+            "pace": 64,
+            "shooting": 54,
+            "passing": 58,
+            "defending": 78,
+            "physical": 78,
+            "goalkeeping": 24
+          },
+          "fitness": 98,
+          "morale": 85,
+          "wage": 8978,
+          "value": 12030520
+        },
+        {
+          "id": "p_eac_20",
+          "name": "Milan Fontaine",
+          "nationality": "ENG",
+          "position": "gk",
+          "attributes": {
+            "pace": 48,
+            "shooting": 24,
+            "passing": 51,
+            "defending": 60,
+            "physical": 58,
+            "goalkeeping": 79
+          },
+          "fitness": 88,
+          "morale": 77,
+          "wage": 8450,
+          "value": 10985000
+        }
+      ]
+    },
+    {
+      "id": "club_west_park",
+      "name": "West Park United",
+      "short_name": "WPU",
+      "reputation": 45,
+      "balance": 2572078,
+      "squad": [
+        {
+          "id": "p_wpu_01",
+          "name": "Malik Bianchi",
+          "nationality": "IRL",
+          "position": "def",
+          "attributes": {
+            "pace": 38,
+            "shooting": 20,
+            "passing": 34,
+            "defending": 45,
+            "physical": 35,
+            "goalkeeping": 20
+          },
+          "fitness": 89,
+          "morale": 59,
+          "wage": 2888,
+          "value": 2194880
+        },
+        {
+          "id": "p_wpu_02",
+          "name": "Marco Osei",
+          "nationality": "GHA",
+          "position": "mid",
+          "attributes": {
+            "pace": 34,
+            "shooting": 35,
+            "passing": 41,
+            "defending": 35,
+            "physical": 39,
+            "goalkeeping": 20
+          },
+          "fitness": 85,
+          "morale": 63,
+          "wage": 2450,
+          "value": 1715000
+        },
+        {
+          "id": "p_wpu_03",
+          "name": "Yusuf Karimi",
+          "nationality": "SEN",
+          "position": "mid",
+          "attributes": {
+            "pace": 31,
+            "shooting": 39,
+            "passing": 55,
+            "defending": 35,
+            "physical": 30,
+            "goalkeeping": 20
+          },
+          "fitness": 86,
+          "morale": 62,
+          "wage": 2738,
+          "value": 2026120
+        },
+        {
+          "id": "p_wpu_04",
+          "name": "Nikolai Ivanov",
+          "nationality": "BRA",
+          "position": "mid",
+          "attributes": {
+            "pace": 54,
+            "shooting": 48,
+            "passing": 60,
+            "defending": 31,
+            "physical": 37,
+            "goalkeeping": 20
+          },
+          "fitness": 92,
+          "morale": 77,
+          "wage": 3872,
+          "value": 3407360
+        },
+        {
+          "id": "p_wpu_05",
+          "name": "Dmitri Chen",
+          "nationality": "KOR",
+          "position": "mid",
+          "attributes": {
+            "pace": 34,
+            "shooting": 33,
+            "passing": 37,
+            "defending": 39,
+            "physical": 36,
+            "goalkeeping": 20
+          },
+          "fitness": 87,
+          "morale": 71,
+          "wage": 2450,
+          "value": 1715000
+        },
+        {
+          "id": "p_wpu_06",
+          "name": "Luca Park",
+          "nationality": "ESP",
+          "position": "fwd",
+          "attributes": {
+            "pace": 42,
+            "shooting": 62,
+            "passing": 44,
+            "defending": 25,
+            "physical": 50,
+            "goalkeeping": 20
+          },
+          "fitness": 86,
+          "morale": 75,
+          "wage": 3528,
+          "value": 2963520
+        },
+        {
+          "id": "p_wpu_07",
+          "name": "Yusuf Fitzgerald",
+          "nationality": "SEN",
+          "position": "gk",
+          "attributes": {
+            "pace": 31,
+            "shooting": 20,
+            "passing": 25,
+            "defending": 41,
+            "physical": 37,
+            "goalkeeping": 52
+          },
+          "fitness": 95,
+          "morale": 59,
+          "wage": 3698,
+          "value": 3180280
+        },
+        {
+          "id": "p_wpu_08",
+          "name": "Liam Mensah",
+          "nationality": "JPN",
+          "position": "fwd",
+          "attributes": {
+            "pace": 44,
+            "shooting": 49,
+            "passing": 40,
+            "defending": 20,
+            "physical": 41,
+            "goalkeeping": 20
+          },
+          "fitness": 87,
+          "morale": 77,
+          "wage": 2450,
+          "value": 1715000
+        },
+        {
+          "id": "p_wpu_09",
+          "name": "Mohamed Costa",
+          "nationality": "IRL",
+          "position": "fwd",
+          "attributes": {
+            "pace": 67,
+            "shooting": 60,
+            "passing": 49,
+            "defending": 28,
+            "physical": 48,
+            "goalkeeping": 20
+          },
+          "fitness": 94,
+          "morale": 71,
+          "wage": 6050,
+          "value": 6655000
+        },
+        {
+          "id": "p_wpu_10",
+          "name": "Ren Fontaine",
+          "nationality": "ITA",
+          "position": "fwd",
+          "attributes": {
+            "pace": 58,
+            "shooting": 62,
+            "passing": 36,
+            "defending": 20,
+            "physical": 41,
+            "goalkeeping": 20
+          },
+          "fitness": 95,
+          "morale": 63,
+          "wage": 3698,
+          "value": 3180280
+        },
+        {
+          "id": "p_wpu_11",
+          "name": "Kofi Kowalski",
+          "nationality": "ESP",
+          "position": "gk",
+          "attributes": {
+            "pace": 23,
+            "shooting": 20,
+            "passing": 29,
+            "defending": 36,
+            "physical": 39,
+            "goalkeeping": 44
+          },
+          "fitness": 96,
+          "morale": 84,
+          "wage": 2450,
+          "value": 1715000
+        },
+        {
+          "id": "p_wpu_12",
+          "name": "Nikolai Girard",
+          "nationality": "KOR",
+          "position": "def",
+          "attributes": {
+            "pace": 60,
+            "shooting": 36,
+            "passing": 43,
+            "defending": 69,
+            "physical": 55,
+            "goalkeeping": 20
+          },
+          "fitness": 94,
+          "morale": 65,
+          "wage": 6272,
+          "value": 7024640
+        },
+        {
+          "id": "p_wpu_13",
+          "name": "Callum Sharma",
+          "nationality": "KOR",
+          "position": "fwd",
+          "attributes": {
+            "pace": 35,
+            "shooting": 49,
+            "passing": 29,
+            "defending": 20,
+            "physical": 41,
+            "goalkeeping": 20
+          },
+          "fitness": 99,
+          "morale": 66,
+          "wage": 2450,
+          "value": 1715000
+        },
+        {
+          "id": "p_wpu_14",
+          "name": "Antoine Almeida",
+          "nationality": "GHA",
+          "position": "fwd",
+          "attributes": {
+            "pace": 44,
+            "shooting": 60,
+            "passing": 49,
+            "defending": 25,
+            "physical": 45,
+            "goalkeeping": 20
+          },
+          "fitness": 97,
+          "morale": 66,
+          "wage": 4050,
+          "value": 3645000
+        },
+        {
+          "id": "p_wpu_15",
+          "name": "Jonas Haddad",
+          "nationality": "ENG",
+          "position": "def",
+          "attributes": {
+            "pace": 40,
+            "shooting": 20,
+            "passing": 36,
+            "defending": 61,
+            "physical": 45,
+            "goalkeeping": 20
+          },
+          "fitness": 96,
+          "morale": 67,
+          "wage": 4418,
+          "value": 4152920
+        },
+        {
+          "id": "p_wpu_16",
+          "name": "Arjun Brennan",
+          "nationality": "GHA",
+          "position": "mid",
+          "attributes": {
+            "pace": 40,
+            "shooting": 53,
+            "passing": 55,
+            "defending": 48,
+            "physical": 50,
+            "goalkeeping": 20
+          },
+          "fitness": 89,
+          "morale": 71,
+          "wage": 4802,
+          "value": 4705960
+        },
+        {
+          "id": "p_wpu_17",
+          "name": "Luca Connolly",
+          "nationality": "KOR",
+          "position": "def",
+          "attributes": {
+            "pace": 42,
+            "shooting": 24,
+            "passing": 47,
+            "defending": 50,
+            "physical": 46,
+            "goalkeeping": 20
+          },
+          "fitness": 100,
+          "morale": 71,
+          "wage": 3528,
+          "value": 2963520
+        },
+        {
+          "id": "p_wpu_18",
+          "name": "Pawel Aziz",
+          "nationality": "ESP",
+          "position": "def",
+          "attributes": {
+            "pace": 48,
+            "shooting": 20,
+            "passing": 36,
+            "defending": 51,
+            "physical": 54,
+            "goalkeeping": 20
+          },
+          "fitness": 91,
+          "morale": 58,
+          "wage": 3698,
+          "value": 3180280
+        },
+        {
+          "id": "p_wpu_19",
+          "name": "Nicolas Nakamura",
+          "nationality": "ENG",
+          "position": "mid",
+          "attributes": {
+            "pace": 27,
+            "shooting": 34,
+            "passing": 42,
+            "defending": 34,
+            "physical": 27,
+            "goalkeeping": 20
+          },
+          "fitness": 87,
+          "morale": 72,
+          "wage": 2450,
+          "value": 1715000
+        },
+        {
+          "id": "p_wpu_20",
+          "name": "Samuel Romano",
+          "nationality": "IND",
+          "position": "def",
+          "attributes": {
+            "pace": 45,
+            "shooting": 29,
+            "passing": 38,
+            "defending": 53,
+            "physical": 56,
+            "goalkeeping": 20
+          },
+          "fitness": 89,
+          "morale": 62,
+          "wage": 4608,
+          "value": 4423680
+        }
+      ]
+    }
+  ]
+}

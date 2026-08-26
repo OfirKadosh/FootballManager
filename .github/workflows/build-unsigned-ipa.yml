@@ -1,0 +1,57 @@
+name: Build unsigned iOS IPA
+
+# Builds an UNSIGNED .ipa on GitHub's free macOS runner. No Apple ID,
+# no Apple Developer Program enrollment, no signing certificate is
+# used or needed at this stage. The resulting .ipa is meant to be
+# signed afterwards on your own machine by a sideloading tool like
+# Sideloadly or AltStore, using your own free Apple ID — that's where
+# the actual Apple signing happens, not here.
+#
+# Runs on every push to main, and can also be triggered manually from
+# the Actions tab (workflow_dispatch).
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+jobs:
+  build-unsigned-ipa:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Generate iOS platform files
+        # This repo ships lib/, assets/, and pubspec.yaml but not the
+        # generated native ios/ project — flutter create scaffolds it
+        # around the existing code without touching it. Safe to skip
+        # if ios/ is already committed to the repo.
+        run: |
+          if [ ! -d "ios" ]; then
+            flutter create --platforms=ios .
+          fi
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build unsigned iOS app
+        run: flutter build ios --release --no-codesign
+
+      - name: Package as unsigned .ipa
+        run: |
+          cd build/ios/iphoneos
+          mkdir -p Payload
+          cp -r Runner.app Payload/Runner.app
+          zip -r PocketManager-unsigned.ipa Payload
+          ls -la
+
+      - name: Upload unsigned .ipa
+        uses: actions/upload-artifact@v4
+        with:
+          name: PocketManager-unsigned-ipa
+          path: build/ios/iphoneos/PocketManager-unsigned.ipa
+          retention-days: 14
