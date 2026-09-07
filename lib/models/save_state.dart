@@ -1,25 +1,39 @@
 import 'club.dart';
+import 'country.dart';
 import 'fixture.dart';
+import 'league.dart';
+import 'news_item.dart';
 import 'objective.dart';
+import 'tactics.dart';
+import 'transfer_offer.dart';
 
-enum Mentality { defensive, balanced, attacking }
-
-/// The full persisted state for one career save. Holds a working copy
-/// of every club (squads mutate via transfers, so this isn't just a
-/// reference back to the read-only ContentPack — see spec §3/§5 on
-/// why SaveState references world data by ID in the full design; this
-/// skeleton keeps a full mutable copy per save for simplicity, since
-/// there's only one save slot and no shared content across saves yet).
+/// The full persisted state for one career save — this is Phase 2's
+/// `GameState`. Kept as `SaveState` for continuity with the existing
+/// codebase and SaveService rather than introducing a parallel type
+/// name for the same thing.
+///
+/// Holds a working copy of every club (squads mutate via transfers, so
+/// this isn't just a reference back to the read-only ContentPack — see
+/// spec §3/§5 on why SaveState references world data by ID in the full
+/// design; this skeleton keeps a full mutable copy per save for
+/// simplicity, since there's only one save slot and no shared content
+/// across saves yet). Phase 2 adds the world layer above clubs
+/// (countries + leagues), tactics, transfer negotiations, and a news
+/// inbox on top of Phase 1's single-division shape.
 class SaveState {
   final String packVersion;
   final String season;
   final String managedClubId;
-  int currentRound; // 1-indexed matchday about to be played
+  int currentRound; // 1-indexed game week about to be played, world-wide (see WorldService doc)
+  final List<Country> countries;
+  final List<League> leagues;
   final List<Club> clubs;
   final List<Fixture> fixtures;
   final List<Objective> objectives;
+  final List<TransferOffer> transferOffers;
+  final List<NewsItem> inbox;
   List<String> lineup; // starting XI player IDs for the managed club
-  Mentality mentality;
+  Tactics tactics;
   int matchSeedCounter;
   bool seasonComplete;
 
@@ -28,16 +42,25 @@ class SaveState {
     required this.season,
     required this.managedClubId,
     required this.currentRound,
+    required this.countries,
+    required this.leagues,
     required this.clubs,
     required this.fixtures,
     required this.objectives,
     required this.lineup,
-    this.mentality = Mentality.balanced,
+    List<TransferOffer>? transferOffers,
+    List<NewsItem>? inbox,
+    Tactics? tactics,
     this.matchSeedCounter = 1,
     this.seasonComplete = false,
-  });
+  })  : transferOffers = transferOffers ?? [],
+        inbox = inbox ?? [],
+        tactics = tactics ?? const Tactics();
 
   Club get managedClub => clubs.firstWhere((c) => c.id == managedClubId);
+
+  League get managedLeague =>
+      leagues.firstWhere((l) => l.id == managedClub.leagueId);
 
   Club clubById(String id) => clubs.firstWhere((c) => c.id == id);
 
@@ -49,22 +72,33 @@ class SaveState {
   List<Fixture> fixturesForRound(int round) =>
       fixtures.where((f) => f.round == round).toList();
 
-  bool get hasFixturesRemaining =>
-      fixtures.any((f) => !f.isPlayed);
+  List<Fixture> fixturesForCompetitionRound(String competitionId, int round) =>
+      fixtures
+          .where((f) => f.competitionId == competitionId && f.round == round)
+          .toList();
 
-  int get totalRounds =>
-      fixtures.isEmpty ? 0 : fixtures.map((f) => f.round).reduce((a, b) => a > b ? a : b);
+  bool get hasFixturesRemaining => fixtures.any((f) => !f.isPlayed);
+
+  int get totalRounds => fixtures.isEmpty
+      ? 0
+      : fixtures.map((f) => f.round).reduce((a, b) => a > b ? a : b);
+
+  void addNews(NewsItem item) => inbox.insert(0, item);
 
   Map<String, dynamic> toJson() => {
         'pack_version': packVersion,
         'season': season,
         'managed_club_id': managedClubId,
         'current_round': currentRound,
+        'countries': countries.map((c) => c.toJson()).toList(),
+        'leagues': leagues.map((l) => l.toJson()).toList(),
         'clubs': clubs.map((c) => c.toJson()).toList(),
         'fixtures': fixtures.map((f) => f.toJson()).toList(),
         'objectives': objectives.map((o) => o.toJson()).toList(),
+        'transfer_offers': transferOffers.map((t) => t.toJson()).toList(),
+        'inbox': inbox.map((n) => n.toJson()).toList(),
         'lineup': lineup,
-        'mentality': mentality.name,
+        'tactics': tactics.toJson(),
         'match_seed_counter': matchSeedCounter,
         'season_complete': seasonComplete,
       };
@@ -74,6 +108,12 @@ class SaveState {
         season: json['season'] as String,
         managedClubId: json['managed_club_id'] as String,
         currentRound: json['current_round'] as int,
+        countries: (json['countries'] as List<dynamic>? ?? [])
+            .map((c) => Country.fromJson(c as Map<String, dynamic>))
+            .toList(),
+        leagues: (json['leagues'] as List<dynamic>? ?? [])
+            .map((l) => League.fromJson(l as Map<String, dynamic>))
+            .toList(),
         clubs: (json['clubs'] as List<dynamic>)
             .map((c) => Club.fromJson(c as Map<String, dynamic>))
             .toList(),
@@ -83,10 +123,16 @@ class SaveState {
         objectives: (json['objectives'] as List<dynamic>)
             .map((o) => Objective.fromJson(o as Map<String, dynamic>))
             .toList(),
+        transferOffers: (json['transfer_offers'] as List<dynamic>? ?? [])
+            .map((t) => TransferOffer.fromJson(t as Map<String, dynamic>))
+            .toList(),
+        inbox: (json['inbox'] as List<dynamic>? ?? [])
+            .map((n) => NewsItem.fromJson(n as Map<String, dynamic>))
+            .toList(),
         lineup: (json['lineup'] as List<dynamic>).cast<String>(),
-        mentality: Mentality.values.byName(
-          json['mentality'] as String? ?? 'balanced',
-        ),
+        tactics: json['tactics'] != null
+            ? Tactics.fromJson(json['tactics'] as Map<String, dynamic>)
+            : const Tactics(),
         matchSeedCounter: json['match_seed_counter'] as int? ?? 1,
         seasonComplete: json['season_complete'] as bool? ?? false,
       );

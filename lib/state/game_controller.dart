@@ -3,16 +3,24 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 
 import '../models/club.dart';
+import '../models/country.dart';
+import '../models/league.dart';
+import '../models/news_item.dart';
 import '../models/objective.dart';
 import '../models/save_state.dart';
+import '../models/tactics.dart';
+import '../models/transfer_offer.dart';
 import '../services/content_pack_service.dart';
+import '../services/data_importer_service.dart';
 import '../services/lineup_service.dart';
 import '../services/save_service.dart';
 import '../services/season_service.dart';
 import '../services/transfer_service.dart';
-export '../services/transfer_service.dart' show OfferResult, OfferOutcome;
+import '../services/world_service.dart';
 import '../sim/match_engine.dart';
 import '../sim/match_result.dart';
+
+export '../services/transfer_service.dart' show OfferResult, OfferOutcome;
 
 enum AppPhase { loading, needsNewGame, ready }
 
@@ -21,14 +29,13 @@ class GameController extends ChangeNotifier {
   ContentPack? pack;
   SaveState? save;
 
-  /// Results from the matchday just played, for the "match result"
-  /// screen. Transient — not persisted.
+  /// Results from the matchday just played across every league, for
+  /// the "match result" dialog and news feed. Transient — not persisted.
   List<MatchResult> lastMatchdayResults = [];
-  String? lastTransferMessage;
 
   Future<void> init() async {
     pack = await ContentPackService.loadBundled(
-      'assets/content/sample_pack.json',
+      'assets/content/sample_world_pack.json',
     );
     final hasSave = await SaveService.hasSave();
     if (hasSave) {
@@ -43,28 +50,65 @@ class GameController extends ChangeNotifier {
   List<Club> get availableClubs => pack!.clubs;
 
   Future<void> startNewGame(String clubId) async {
-    final clubs = pack!.clubs
+    await _startCareer(
+      packVersion: pack!.version,
+      season: pack!.season,
+      countries: pack!.countries,
+      leagues: pack!.leagues,
+      clubs: pack!.clubs,
+      managedClubId: clubId,
+    );
+  }
+
+  /// Starts a career from a user-imported dataset instead of the
+  /// bundled sample pack — see [DataImporterService].
+  Future<void> startNewGameFromImport(ImportResult imported, String clubId) async {
+    await _startCareer(
+      packVersion: 'imported-${DateTime.now().millisecondsSinceEpoch}',
+      season: pack!.season,
+      countries: imported.countries,
+      leagues: imported.leagues,
+      clubs: imported.clubs,
+      managedClubId: clubId,
+    );
+  }
+
+  Future<void> _startCareer({
+    required String packVersion,
+    required String season,
+    required List<Country> countries,
+    required List<League> leagues,
+    required List<Club> clubs,
+    required String managedClubId,
+  }) async {
+    final clonedClubs = clubs
         .map((c) => Club(
               id: c.id,
               name: c.name,
               shortName: c.shortName,
+              leagueId: c.leagueId,
               reputation: c.reputation,
               balance: c.balance,
+              stadiumCapacity: c.stadiumCapacity,
+              weeklySponsorship: c.weeklySponsorship,
               squad: c.squad,
             ))
         .toList();
 
-    final fixtures = SeasonService.generateRoundRobin(clubs);
-    final managedClub = clubs.firstWhere((c) => c.id == clubId);
+    final fixtures = WorldService.generateAllFixtures(leagues, clonedClubs);
+    final managedClub = clonedClubs.firstWhere((c) => c.id == managedClubId);
     final lineup = LineupService.autoPick(managedClub);
-    final objectives = _generateObjectives(managedClub, clubs.length);
+    final leagueSize = WorldService.clubsInLeague(managedClub.leagueId, clonedClubs).length;
+    final objectives = _generateObjectives(managedClub, leagueSize);
 
     save = SaveState(
-      packVersion: pack!.version,
-      season: pack!.season,
-      managedClubId: clubId,
+      packVersion: packVersion,
+      season: season,
+      managedClubId: managedClubId,
       currentRound: 1,
-      clubs: clubs,
+      countries: countries,
+      leagues: leagues,
+      clubs: clonedClubs,
       fixtures: fixtures,
       objectives: objectives,
       lineup: lineup,
@@ -84,14 +128,14 @@ class GameController extends ChangeNotifier {
       title = 'Finish in the top 3';
       target = 3;
     } else {
-      title = 'Finish in the top 6';
-      target = 6;
+      title = 'Finish in the top ${(leagueSize / 2).ceil()}';
+      target = (leagueSize / 2).ceil();
     }
     return [
       Objective(id: 'obj_primary', description: title, targetPosition: target),
       Objective(
         id: 'obj_safety',
-        description: 'Avoid finishing bottom of the table',
+        description: 'Avoid relegation',
         targetPosition: leagueSize - 1,
       ),
     ];
@@ -100,8 +144,11 @@ class GameController extends ChangeNotifier {
   bool get canPlayMatchday =>
       save != null && !save!.seasonComplete && save!.hasFixturesRemaining;
 
-  List<TableRow> get table =>
-      SeasonService.computeTable(save!.clubs, save!.fixtures);
+  List<TableRow> get table => WorldService.tableFor(
+        save!.managedClub.leagueId,
+        save!.clubs,
+        save!.fixtures,
+      );
 
   int get managedClubPosition =>
       SeasonService.tablePositionOf(save!.managedClubId, table);
@@ -110,9 +157,13 @@ class GameController extends ChangeNotifier {
     final s = save!;
     if (!canPlayMatchday) return;
 
-    final roundFixtures = s.fixturesForRound(s.currentRound);
+    // Every league in the world plays its fixture for this round in
+    // the same call — see WorldService's class doc for the lockstep
+    // assumption this relies on.
+    final roundFixtures = s.fixtures.where((f) => f.round == s.currentRound).toList();
     final engine = MatchEngine(pack!.simConfig);
     final results = <MatchResult>[];
+    final playedPlayerIds = <String>{};
 
     for (final fixture in roundFixtures) {
       final home = s.clubById(fixture.homeClubId);
@@ -124,32 +175,37 @@ class GameController extends ChangeNotifier {
       final homeLineup = homeIsManaged ? s.lineup : LineupService.autoPick(home);
       final awayLineup = awayIsManaged ? s.lineup : LineupService.autoPick(away);
 
-      // The engine only models a home-side mentality shift (v1
-      // simplification, see MatchEngine docs) — it applies whenever
-      // the managed club is at home this fixture, and is a no-op
-      // otherwise (awayIsManaged is unused here as a result).
       final result = engine.simulate(
         home: home,
         away: away,
         seed: s.matchSeedCounter++,
         homeLineupIds: homeLineup,
         awayLineupIds: awayLineup,
-        homeMentalityShift: homeIsManaged ? _mentalityShift(s.mentality) : 0.0,
+        homeMentalityShift:
+            homeIsManaged ? _mentalityShift(s.tactics.mentality) : 0.0,
+        homeStyle: homeIsManaged ? s.tactics.style : null,
       );
       results.add(result);
+      playedPlayerIds.addAll(homeLineup);
+      playedPlayerIds.addAll(awayLineup);
 
       final updatedFixture = fixture.withResult(result.homeGoals, result.awayGoals);
       final idx = s.fixtures.indexWhere((f) => f.id == fixture.id);
       s.fixtures[idx] = updatedFixture;
+
+      if (homeIsManaged || awayIsManaged) {
+        _applyMatchFinances(home: home, away: away);
+      }
     }
 
+    _applyFitnessAndInjuries(playedPlayerIds);
     lastMatchdayResults = results;
     s.currentRound++;
 
+    _postManagedClubNews(results);
+
     if (!s.hasFixturesRemaining) {
       _finalizeSeason();
-    } else {
-      _updateObjectiveProgress();
     }
 
     await SaveService.save(s);
@@ -167,25 +223,137 @@ class GameController extends ChangeNotifier {
     }
   }
 
-  void _updateObjectiveProgress() {
-    // Objectives resolve fully at season end; mid-season this is a
-    // no-op placeholder for future "on track / at risk" messaging.
+  /// Fitness drains for anyone who started, scaled down by their
+  /// staminaRating; anyone who didn't play recovers instead. A small
+  /// injury roll (weighted by injuryProneness) can take a played
+  /// player out for a few game weeks. This is the "physical" half of
+  /// Phase 2's attribute spec actually affecting gameplay, not just
+  /// sitting on the Player record unused.
+  void _applyFitnessAndInjuries(Set<String> playedPlayerIds) {
+    final s = save!;
+    final rng = Random(s.matchSeedCounter++);
+
+    for (var ci = 0; ci < s.clubs.length; ci++) {
+      final club = s.clubs[ci];
+      final updatedSquad = club.squad.map((p) {
+        if (p.retired) return p;
+        if (playedPlayerIds.contains(p.id)) {
+          final drain = (12 - (p.attributes.staminaRating / 12)).clamp(4, 12).round();
+          final newFitness = (p.fitness - drain).clamp(30, 100).toInt();
+
+          final injuryRoll = rng.nextDouble() * 100;
+          final injuryThreshold = p.attributes.injuryProneness / 25; // ~0.8%-3.8% per match
+          if (injuryRoll < injuryThreshold) {
+            return p.copyWith(
+              fitness: newFitness,
+              injured: true,
+              injuryDaysRemaining: 7 + rng.nextInt(21),
+            );
+          }
+          return p.copyWith(fitness: newFitness);
+        }
+        // Rested: recover fitness, and count down any injury.
+        final recovered = (p.fitness + 8).clamp(0, 100).toInt();
+        if (p.injured) {
+          final remaining = p.injuryDaysRemaining - 7;
+          return p.copyWith(
+            fitness: recovered,
+            injured: remaining > 0,
+            injuryDaysRemaining: remaining > 0 ? remaining : 0,
+          );
+        }
+        return p.copyWith(fitness: recovered);
+      }).toList();
+      s.clubs[ci] = club.copyWith(squad: updatedSquad);
+    }
+  }
+
+  void _applyMatchFinances({required Club home, required Club away}) {
+    final s = save!;
+    final gate = home.estimatedHomeGateReceipts();
+    final updatedHome = s.clubById(home.id).copyWith(
+          balance: s.clubById(home.id).balance +
+              gate +
+              home.weeklySponsorship -
+              home.weeklyWageBill,
+        );
+    final updatedAway = s.clubById(away.id).copyWith(
+          balance: s.clubById(away.id).balance +
+              away.weeklySponsorship -
+              away.weeklyWageBill,
+        );
+    s.replaceClub(updatedHome);
+    s.replaceClub(updatedAway);
+  }
+
+  void _postManagedClubNews(List<MatchResult> results) {
+    final s = save!;
+    final own = results.cast<MatchResult?>().firstWhere(
+          (r) => r!.homeClubId == s.managedClubId || r.awayClubId == s.managedClubId,
+          orElse: () => null,
+        );
+    if (own == null) return;
+    final home = s.clubById(own.homeClubId);
+    final away = s.clubById(own.awayClubId);
+    s.addNews(NewsItem(
+      id: 'news_${s.matchSeedCounter}',
+      category: NewsCategory.matchResult,
+      headline: '${home.name} ${own.scoreline} ${away.name}',
+      body: own.events.isEmpty
+          ? 'A quiet one — no goals from either side.'
+          : own.events.map((e) => e.toString()).join('\n'),
+      gameWeek: s.currentRound - 1,
+    ));
   }
 
   void _finalizeSeason() {
     final s = save!;
     s.seasonComplete = true;
+
     final finalTable = table;
     final position = SeasonService.tablePositionOf(s.managedClubId, finalTable);
     for (final obj in s.objectives) {
       obj.status = position <= obj.targetPosition
           ? ObjectiveStatus.achieved
           : ObjectiveStatus.failed;
+      s.addNews(NewsItem(
+        id: 'news_obj_${obj.id}',
+        category: NewsCategory.objective,
+        headline: obj.status == ObjectiveStatus.achieved
+            ? 'Objective achieved: ${obj.description}'
+            : 'Objective missed: ${obj.description}',
+        body: 'Final league position: $position.',
+        gameWeek: s.currentRound,
+      ));
+    }
+
+    final moves = WorldService.resolveSeasonEnd(
+      countries: s.countries,
+      leagues: s.leagues,
+      clubs: s.clubs,
+      fixtures: s.fixtures,
+    );
+    for (final move in moves) {
+      final club = s.clubById(move.clubId);
+      s.replaceClub(club.copyWith(leagueId: move.toLeagueId));
+      final movingUp = s.leagues.firstWhere((l) => l.id == move.toLeagueId).tier <
+          s.leagues.firstWhere((l) => l.id == move.fromLeagueId).tier;
+      if (club.id == s.managedClubId) {
+        s.addNews(NewsItem(
+          id: 'news_promrel_${move.clubId}',
+          category: NewsCategory.promotionRelegation,
+          headline: movingUp ? 'Promoted!' : 'Relegated',
+          body: movingUp
+              ? '${club.name} have been promoted to a higher division.'
+              : '${club.name} have been relegated to a lower division.',
+          gameWeek: s.currentRound,
+        ));
+      }
     }
   }
 
-  Future<void> setMentality(Mentality m) async {
-    save!.mentality = m;
+  Future<void> setTactics(Tactics tactics) async {
+    save!.tactics = tactics;
     await SaveService.save(save!);
     notifyListeners();
   }
@@ -197,6 +365,13 @@ class GameController extends ChangeNotifier {
     } else if (s.lineup.length < 11) {
       s.lineup = List.from(s.lineup)..add(playerId);
     }
+    await SaveService.save(s);
+    notifyListeners();
+  }
+
+  Future<void> autoFillLineup() async {
+    final s = save!;
+    s.lineup = LineupService.autoPick(s.managedClub, formation: s.tactics.formation);
     await SaveService.save(s);
     notifyListeners();
   }
@@ -221,6 +396,20 @@ class GameController extends ChangeNotifier {
       rng: Random(s.matchSeedCounter++),
     );
 
+    final offer = TransferOffer(
+      id: 'offer_${s.matchSeedCounter}',
+      playerId: playerId,
+      sellingClubId: sellingClubId,
+      buyingClubId: buyingClub.id,
+      amount: amount,
+      direction: TransferOfferDirection.outgoing,
+      gameWeekCreated: s.currentRound,
+      status: result.outcome == OfferOutcome.accepted
+          ? TransferOfferStatus.accepted
+          : TransferOfferStatus.rejected,
+    );
+    s.transferOffers.add(offer);
+
     if (result.outcome == OfferOutcome.accepted) {
       final (updatedSelling, updatedBuying) = TransferService.completeTransfer(
         sellingClub: sellingClub,
@@ -230,6 +419,14 @@ class GameController extends ChangeNotifier {
       );
       s.replaceClub(updatedSelling);
       s.replaceClub(updatedBuying);
+      s.addNews(NewsItem(
+        id: 'news_${offer.id}',
+        category: NewsCategory.transfer,
+        headline: '${player.name} signed',
+        body: '${buyingClub.name} completed the signing of ${player.name} '
+            'from ${sellingClub.name} for \$$amount.',
+        gameWeek: s.currentRound,
+      ));
       await SaveService.save(s);
       notifyListeners();
     }
@@ -269,8 +466,14 @@ class GameController extends ChangeNotifier {
       );
       s.replaceClub(updatedSelling);
       s.replaceClub(updatedBuying);
-      // Player leaving might have been in the lineup — remove if so.
       s.lineup = List.from(s.lineup)..remove(playerId);
+      s.addNews(NewsItem(
+        id: 'news_sell_${player.id}_${s.currentRound}',
+        category: NewsCategory.transfer,
+        headline: '${player.name} sold',
+        body: '${buyingClub.name} bought ${player.name} for \$$askingPrice.',
+        gameWeek: s.currentRound,
+      ));
       await SaveService.save(s);
       notifyListeners();
       return OfferResult(
@@ -279,6 +482,14 @@ class GameController extends ChangeNotifier {
       );
     }
     return result;
+  }
+
+  Future<void> markNewsRead(String newsId) async {
+    final s = save!;
+    final item = s.inbox.firstWhere((n) => n.id == newsId);
+    item.read = true;
+    await SaveService.save(s);
+    notifyListeners();
   }
 
   Future<void> abandonCareer() async {

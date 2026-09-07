@@ -3,20 +3,29 @@ import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 
 import '../models/club.dart';
+import '../models/country.dart';
+import '../models/league.dart';
 import '../sim/sim_config.dart';
 
 /// Loads a versioned content pack (world data + sim tunables) — see
 /// spec §4. In production this fetches from a CDN and caches locally;
-/// this skeleton loads the bundled asset directly for simplicity.
+/// this skeleton loads the bundled asset directly for simplicity. A
+/// pack loaded via [DataImporterService] instead of this bundled
+/// loader carries the same shape — [ContentPack] is the common target
+/// either way.
 class ContentPack {
   final String version;
   final String season;
+  final List<Country> countries;
+  final List<League> leagues;
   final List<Club> clubs;
   final SimConfig simConfig;
 
   const ContentPack({
     required this.version,
     required this.season,
+    required this.countries,
+    required this.leagues,
     required this.clubs,
     required this.simConfig,
   });
@@ -25,6 +34,12 @@ class ContentPack {
     return ContentPack(
       version: json['version'] as String,
       season: json['season'] as String,
+      countries: (json['countries'] as List<dynamic>? ?? [])
+          .map((c) => Country.fromJson(c as Map<String, dynamic>))
+          .toList(),
+      leagues: (json['leagues'] as List<dynamic>)
+          .map((l) => League.fromJson(l as Map<String, dynamic>))
+          .toList(),
       clubs: (json['clubs'] as List<dynamic>)
           .map((c) => Club.fromJson(c as Map<String, dynamic>))
           .toList(),

@@ -13,14 +13,20 @@ class DashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final save = controller.save!;
     final club = save.managedClub;
+    final league = save.managedLeague;
     final position = controller.managedClubPosition;
+
     final nextOwnFixture = save.fixtures
         .where((f) =>
             !f.isPlayed &&
-            (f.homeClubId == save.managedClubId ||
-                f.awayClubId == save.managedClubId))
+            (f.homeClubId == save.managedClubId || f.awayClubId == save.managedClubId))
         .toList()
       ..sort((a, b) => a.round.compareTo(b.round));
+
+    final avgMorale = club.activeSquad.isEmpty
+        ? 0
+        : club.activeSquad.map((p) => p.morale).reduce((a, b) => a + b) ~/
+            club.activeSquad.length;
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
@@ -34,10 +40,29 @@ class DashboardScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(club.name, style: Theme.of(context).textTheme.headlineSmall),
+                  Text(league.name, style: Theme.of(context).textTheme.bodySmall),
                   const SizedBox(height: 8),
-                  Text('Position: $position of ${save.clubs.length}'),
+                  Text('Position: $position of ${_leagueSize(save)}'),
+                  Text('Team morale: $avgMorale / 100'),
+                  Text(
+                    'Season: ${save.season} · Game week ${save.currentRound.clamp(1, save.totalRounds)} of ${save.totalRounds}',
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Finances', style: Theme.of(context).textTheme.titleMedium),
+                  const SizedBox(height: 8),
                   Text('Balance: \$${club.balance}'),
-                  Text('Season: ${save.season} · Matchday ${save.currentRound.clamp(1, save.totalRounds)} of ${save.totalRounds}'),
+                  Text('Weekly wage bill: \$${club.weeklyWageBill}'),
+                  Text('Weekly sponsorship: \$${club.weeklySponsorship}'),
                 ],
               ),
             ),
@@ -55,9 +80,7 @@ class DashboardScreen extends StatelessWidget {
                     Builder(builder: (context) {
                       final f = nextOwnFixture.first;
                       final isHome = f.homeClubId == save.managedClubId;
-                      final opponent = save.clubById(
-                        isHome ? f.awayClubId : f.homeClubId,
-                      );
+                      final opponent = save.clubById(isHome ? f.awayClubId : f.homeClubId);
                       return Text(
                         isHome ? 'Home vs ${opponent.name}' : 'Away at ${opponent.name}',
                       );
@@ -67,27 +90,28 @@ class DashboardScreen extends StatelessWidget {
               ),
             ),
           const SizedBox(height: 16),
-          Card(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Tactics', style: Theme.of(context).textTheme.titleMedium),
-                  const SizedBox(height: 8),
-                  SegmentedButton<Mentality>(
-                    segments: const [
-                      ButtonSegment(value: Mentality.defensive, label: Text('Defensive')),
-                      ButtonSegment(value: Mentality.balanced, label: Text('Balanced')),
-                      ButtonSegment(value: Mentality.attacking, label: Text('Attacking')),
-                    ],
-                    selected: {save.mentality},
-                    onSelectionChanged: (s) => controller.setMentality(s.first),
-                  ),
-                ],
+          if (save.inbox.isNotEmpty)
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Latest news', style: Theme.of(context).textTheme.titleMedium),
+                    const SizedBox(height: 8),
+                    Text(
+                      save.inbox.first.headline,
+                      style: const TextStyle(fontWeight: FontWeight.w600),
+                    ),
+                    Text(
+                      save.inbox.first.body,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
           const SizedBox(height: 24),
           if (save.seasonComplete)
             Card(
@@ -95,18 +119,16 @@ class DashboardScreen extends StatelessWidget {
               child: const Padding(
                 padding: EdgeInsets.all(16),
                 child: Text(
-                  'Season complete! Check the Objectives tab for your final results.',
+                  'Season complete! Check Inbox & News for your final results.',
                   textAlign: TextAlign.center,
                 ),
               ),
             )
           else
             FilledButton.icon(
-              onPressed: controller.canPlayMatchday
-                  ? () => _playMatchday(context)
-                  : null,
+              onPressed: controller.canPlayMatchday ? () => _playMatchday(context) : null,
               icon: const Icon(Icons.sports_soccer),
-              label: Text('Play Matchday ${save.currentRound}'),
+              label: Text('Play Game Week ${save.currentRound}'),
             ),
         ],
       ),
@@ -117,12 +139,8 @@ class DashboardScreen extends StatelessWidget {
     await controller.playNextMatchday();
     if (!context.mounted) return;
     final save = controller.save!;
-    final MatchResult? own = controller.lastMatchdayResults
-        .cast<MatchResult?>()
-        .firstWhere(
-          (r) =>
-              r!.homeClubId == save.managedClubId ||
-              r.awayClubId == save.managedClubId,
+    final MatchResult? own = controller.lastMatchdayResults.cast<MatchResult?>().firstWhere(
+          (r) => r!.homeClubId == save.managedClubId || r.awayClubId == save.managedClubId,
           orElse: () => null,
         );
     if (own == null) return;
@@ -145,7 +163,7 @@ class DashboardScreen extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 12),
-            Text('League position: $position of ${save.clubs.length}'),
+            Text('League position: $position of ${_leagueSize(save)}'),
             if (own.events.isNotEmpty) ...[
               const SizedBox(height: 12),
               const Align(
@@ -166,3 +184,6 @@ class DashboardScreen extends StatelessWidget {
     );
   }
 }
+
+int _leagueSize(SaveState save) =>
+    save.clubs.where((c) => c.leagueId == save.managedClub.leagueId).length;

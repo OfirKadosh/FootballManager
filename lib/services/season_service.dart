@@ -18,8 +18,14 @@ class TableRow {
 
 class SeasonService {
   /// Generates a double round-robin fixture list (home & away) for an
-  /// even number of clubs using the standard circle method.
-  static List<Fixture> generateRoundRobin(List<Club> clubs) {
+  /// even number of clubs using the standard circle method, tagged
+  /// with [competitionId] so multiple leagues' fixtures can share one
+  /// flat list (see [Fixture.competitionId]).
+  static List<Fixture> generateRoundRobin(
+    List<Club> clubs, {
+    required String competitionId,
+    int fixtureIdOffset = 0,
+  }) {
     final ids = clubs.map((c) => c.id).toList();
     assert(ids.length.isEven, 'Round robin requires an even number of clubs');
 
@@ -29,7 +35,7 @@ class SeasonService {
     final fixtures = <Fixture>[];
     var rotating = ids.sublist(1); // keep ids[0] fixed, rotate the rest
 
-    var fixtureCounter = 0;
+    var fixtureCounter = fixtureIdOffset;
 
     for (var round = 0; round < rounds; round++) {
       final roundIds = [ids[0], ...rotating];
@@ -41,7 +47,8 @@ class SeasonService {
         final home = (round.isEven) ? a : b;
         final away = (round.isEven) ? b : a;
         fixtures.add(Fixture(
-          id: 'f${fixtureCounter++}',
+          id: '${competitionId}_f${fixtureCounter++}',
+          competitionId: competitionId,
           round: round + 1,
           homeClubId: home,
           awayClubId: away,
@@ -57,7 +64,8 @@ class SeasonService {
     final firstLeg = List<Fixture>.from(fixtures);
     for (final f in firstLeg) {
       fixtures.add(Fixture(
-        id: 'f${fixtureCounter++}',
+        id: '${competitionId}_f${fixtureCounter++}',
+        competitionId: competitionId,
         round: f.round + rounds,
         homeClubId: f.awayClubId,
         awayClubId: f.homeClubId,
@@ -68,7 +76,9 @@ class SeasonService {
   }
 
   /// Computes a sorted league table (points, then goal difference,
-  /// then goals for) from played fixtures.
+  /// then goals for) from played fixtures. Pass only the fixtures and
+  /// clubs belonging to one competition — see [WorldService] for the
+  /// multi-league orchestration.
   static List<TableRow> computeTable(List<Club> clubs, List<Fixture> fixtures) {
     final rows = {for (final c in clubs) c.id: TableRow(c.id)};
 

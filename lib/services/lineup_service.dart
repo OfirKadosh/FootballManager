@@ -1,27 +1,33 @@
 import '../models/club.dart';
 import '../models/player.dart';
+import '../models/tactics.dart';
 
-/// Picks a starting XI in a fixed 4-3-3 (1 GK, 4 DEF, 3 MID, 3 FWD),
-/// choosing the highest-rated available (non-retired) player per slot
-/// by fitness-adjusted overall rating. This is the v1 auto-pick; a
-/// manual lineup editor can override individual slots later.
+/// Picks a starting XI for a given [Formation], choosing the
+/// highest-rated available (non-retired, non-injured) player per slot
+/// by fitness-adjusted overall rating. This is the auto-pick; a manual
+/// lineup editor can override individual slots on top of this.
 class LineupService {
-  static const formation = {
-    Position.gk: 1,
-    Position.def: 4,
-    Position.mid: 3,
-    Position.fwd: 3,
-  };
-
-  static List<String> autoPick(Club club) {
-    final squad = List<Player>.from(club.activeSquad);
+  static List<String> autoPick(Club club, {Formation formation = Formation.f433}) {
+    final squad = List<Player>.from(club.availableSquad);
     final picked = <String>[];
 
-    for (final entry in formation.entries) {
-      final pool = squad.where((p) => p.position == entry.key).toList()
+    final gkPool = squad.where((p) => p.position == Position.gk).toList()
+      ..sort((a, b) => _score(b).compareTo(_score(a)));
+    if (gkPool.isNotEmpty) picked.add(gkPool.first.id);
+
+    const positionByKey = {
+      'def': Position.def,
+      'mid': Position.mid,
+      'fwd': Position.fwd,
+    };
+
+    for (final entry in formation.slots.entries) {
+      final position = positionByKey[entry.key]!;
+      final pool = squad
+          .where((p) => p.position == position && !picked.contains(p.id))
+          .toList()
         ..sort((a, b) => _score(b).compareTo(_score(a)));
-      final take = pool.take(entry.value);
-      picked.addAll(take.map((p) => p.id));
+      picked.addAll(pool.take(entry.value).map((p) => p.id));
     }
 
     // If a position group is short (small squad), fill remaining slots
@@ -37,5 +43,5 @@ class LineupService {
   }
 
   static double _score(Player p) =>
-      p.overallRating * (0.7 + 0.3 * p.fitness / 100);
+      p.overallRating * (0.7 + 0.3 * p.fitness / 100) * (0.85 + 0.15 * p.morale / 100);
 }

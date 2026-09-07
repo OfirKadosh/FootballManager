@@ -19,6 +19,8 @@ class _TransferMarketScreenState extends State<TransferMarketScreen> {
   @override
   Widget build(BuildContext context) {
     final save = widget.controller.save!;
+    final scoutingTip = _weakestPosition(save.managedClub.activeSquad);
+
     final listings = <(Club, Player)>[];
     for (final club in save.clubs) {
       if (club.id == save.managedClubId) continue;
@@ -32,6 +34,29 @@ class _TransferMarketScreenState extends State<TransferMarketScreen> {
 
     return Column(
       children: [
+        if (scoutingTip != null)
+          Container(
+            width: double.infinity,
+            color: Theme.of(context).colorScheme.tertiaryContainer,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            child: Row(
+              children: [
+                const Icon(Icons.travel_explore, size: 18),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    'Scouting: ${scoutingTip.name.toUpperCase()} is your weakest '
+                    'position (avg OVR ${scoutingTip.avgRating}) — consider '
+                    'strengthening there.',
+                  ),
+                ),
+                TextButton(
+                  onPressed: () => setState(() => _positionFilter = scoutingTip.position),
+                  child: const Text('Filter'),
+                ),
+              ],
+            ),
+          ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           child: Wrap(
@@ -120,4 +145,38 @@ class _TransferMarketScreenState extends State<TransferMarketScreen> {
       SnackBar(content: Text(result.message)),
     );
   }
+
+  /// Simple scouting heuristic: which outfield position has the lowest
+  /// average rating in the managed squad. Good enough to point the
+  /// user somewhere useful; a fuller scouting system (scout reports,
+  /// hidden attributes revealed over time) is a natural next layer.
+  _WeakPosition? _weakestPosition(List<Player> squad) {
+    final byPosition = <Position, List<int>>{};
+    for (final p in squad) {
+      if (p.position == Position.gk) continue;
+      byPosition.putIfAbsent(p.position, () => []).add(p.overallRating);
+    }
+    if (byPosition.isEmpty) return null;
+
+    Position? weakest;
+    double weakestAvg = double.infinity;
+    for (final entry in byPosition.entries) {
+      final avg = entry.value.reduce((a, b) => a + b) / entry.value.length;
+      if (avg < weakestAvg) {
+        weakestAvg = avg;
+        weakest = entry.key;
+      }
+    }
+    if (weakest == null) return null;
+    return _WeakPosition(position: weakest, avgRating: weakestAvg.round());
+  }
+}
+
+class _WeakPosition {
+  final Position position;
+  final int avgRating;
+
+  const _WeakPosition({required this.position, required this.avgRating});
+
+  String get name => position.name;
 }
