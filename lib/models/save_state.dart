@@ -7,24 +7,11 @@ import 'objective.dart';
 import 'tactics.dart';
 import 'transfer_offer.dart';
 
-/// The full persisted state for one career save — this is Phase 2's
-/// `GameState`. Kept as `SaveState` for continuity with the existing
-/// codebase and SaveService rather than introducing a parallel type
-/// name for the same thing.
-///
-/// Holds a working copy of every club (squads mutate via transfers, so
-/// this isn't just a reference back to the read-only ContentPack — see
-/// spec §3/§5 on why SaveState references world data by ID in the full
-/// design; this skeleton keeps a full mutable copy per save for
-/// simplicity, since there's only one save slot and no shared content
-/// across saves yet). Phase 2 adds the world layer above clubs
-/// (countries + leagues), tactics, transfer negotiations, and a news
-/// inbox on top of Phase 1's single-division shape.
 class SaveState {
   final String packVersion;
   final String season;
   final String managedClubId;
-  int currentRound; // 1-indexed game week about to be played, world-wide (see WorldService doc)
+  int currentRound;
   final List<Country> countries;
   final List<League> leagues;
   final List<Club> clubs;
@@ -32,7 +19,7 @@ class SaveState {
   final List<Objective> objectives;
   final List<TransferOffer> transferOffers;
   final List<NewsItem> inbox;
-  List<String> lineup; // starting XI player IDs for the managed club
+  List<String> lineup;
   Tactics tactics;
   int matchSeedCounter;
   bool seasonComplete;

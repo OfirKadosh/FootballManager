@@ -29,8 +29,6 @@ class GameController extends ChangeNotifier {
   ContentPack? pack;
   SaveState? save;
 
-  /// Results from the matchday just played across every league, for
-  /// the "match result" dialog and news feed. Transient — not persisted.
   List<MatchResult> lastMatchdayResults = [];
 
   Future<void> init() async {
@@ -60,8 +58,6 @@ class GameController extends ChangeNotifier {
     );
   }
 
-  /// Starts a career from a user-imported dataset instead of the
-  /// bundled sample pack — see [DataImporterService].
   Future<void> startNewGameFromImport(ImportResult imported, String clubId) async {
     await _startCareer(
       packVersion: 'imported-${DateTime.now().millisecondsSinceEpoch}',
@@ -157,9 +153,6 @@ class GameController extends ChangeNotifier {
     final s = save!;
     if (!canPlayMatchday) return;
 
-    // Every league in the world plays its fixture for this round in
-    // the same call — see WorldService's class doc for the lockstep
-    // assumption this relies on.
     final roundFixtures = s.fixtures.where((f) => f.round == s.currentRound).toList();
     final engine = MatchEngine(pack!.simConfig);
     final results = <MatchResult>[];
@@ -223,12 +216,6 @@ class GameController extends ChangeNotifier {
     }
   }
 
-  /// Fitness drains for anyone who started, scaled down by their
-  /// staminaRating; anyone who didn't play recovers instead. A small
-  /// injury roll (weighted by injuryProneness) can take a played
-  /// player out for a few game weeks. This is the "physical" half of
-  /// Phase 2's attribute spec actually affecting gameplay, not just
-  /// sitting on the Player record unused.
   void _applyFitnessAndInjuries(Set<String> playedPlayerIds) {
     final s = save!;
     final rng = Random(s.matchSeedCounter++);
@@ -242,7 +229,7 @@ class GameController extends ChangeNotifier {
           final newFitness = (p.fitness - drain).clamp(30, 100).toInt();
 
           final injuryRoll = rng.nextDouble() * 100;
-          final injuryThreshold = p.attributes.injuryProneness / 25; // ~0.8%-3.8% per match
+          final injuryThreshold = p.attributes.injuryProneness / 25;
           if (injuryRoll < injuryThreshold) {
             return p.copyWith(
               fitness: newFitness,
@@ -252,7 +239,6 @@ class GameController extends ChangeNotifier {
           }
           return p.copyWith(fitness: newFitness);
         }
-        // Rested: recover fitness, and count down any injury.
         final recovered = (p.fitness + 8).clamp(0, 100).toInt();
         if (p.injured) {
           final remaining = p.injuryDaysRemaining - 7;

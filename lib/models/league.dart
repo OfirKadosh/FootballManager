@@ -1,16 +1,13 @@
-/// A single division (e.g. "Premier League" tier 1, "Championship"
-/// tier 2) within one [Country]. Promotion/relegation pairs are
-/// resolved by [WorldService] matching countryId + adjacent tiers —
-/// leagues don't reference each other directly, so a league can be
-/// added or removed without dangling links.
+/// A single division within one [Country]. Promotion/relegation pairs
+/// are resolved by [WorldService] matching countryId + adjacent tiers.
 class League {
   final String id;
   final String countryId;
   final String name;
   final int tier; // 1 = top flight
-  final int promotionSpots; // clubs promoted to tier-1 above (0 if tier 1)
-  final int relegationSpots; // clubs relegated to tier+1 below (0 if bottom tier)
-  final int continentalQualificationSpots; // only meaningful for tier 1
+  final int promotionSpots;
+  final int relegationSpots;
+  final int continentalQualificationSpots;
 
   const League({
     required this.id,

@@ -4,22 +4,7 @@ import '../models/fixture.dart';
 import '../models/league.dart';
 import 'season_service.dart';
 
-/// Orchestrates the whole footballing world: every league, every
-/// country, every AI-vs-AI match, resolved together each game week.
-/// This is the piece that turns Phase 1's single division into
-/// Phase 2's "multiple nations, multiple tiers" world.
-///
-/// v1 simplification, stated plainly: every league in the world is
-/// assumed to have the same number of clubs, so they all complete
-/// their round-robin in the same number of game weeks and a single
-/// global `currentRound` counter (already on SaveState) can drive all
-/// of them in lockstep. Leagues of different sizes finishing on
-/// different weeks is the natural next increment — it only requires
-/// tracking a round-cursor per competitionId instead of one global
-/// counter; nothing else here would need to change shape.
 class WorldService {
-  /// Builds the fixture list for every league in the world in one call
-  /// — used once, at new-career creation.
   static List<Fixture> generateAllFixtures(
     List<League> leagues,
     List<Club> clubs,
@@ -60,8 +45,6 @@ class WorldService {
     return leagues.where((l) => l.id == club.leagueId).firstOrNull;
   }
 
-  /// Result of resolving one season's promotion/relegation across the
-  /// whole world: which clubs moved, and to which league.
   static List<PromotionRelegationMove> resolveSeasonEnd({
     required List<Country> countries,
     required List<League> leagues,
@@ -110,12 +93,6 @@ class WorldService {
     return moves;
   }
 
-  /// Which clubs qualify for the continental competition this season —
-  /// top N (per [League.continentalQualificationSpots]) of every tier-1
-  /// league. Phase 2 foundation stops at identifying qualifiers; the
-  /// continental cup's own fixture list/knockout bracket is the next
-  /// competition to layer on top using the same Fixture/competitionId
-  /// mechanism already in place.
   static List<String> continentalQualifiers({
     required List<League> leagues,
     required List<Club> clubs,

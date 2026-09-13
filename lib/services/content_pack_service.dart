@@ -7,12 +7,6 @@ import '../models/country.dart';
 import '../models/league.dart';
 import '../sim/sim_config.dart';
 
-/// Loads a versioned content pack (world data + sim tunables) — see
-/// spec §4. In production this fetches from a CDN and caches locally;
-/// this skeleton loads the bundled asset directly for simplicity. A
-/// pack loaded via [DataImporterService] instead of this bundled
-/// loader carries the same shape — [ContentPack] is the common target
-/// either way.
 class ContentPack {
   final String version;
   final String season;

@@ -146,10 +146,6 @@ class _TransferMarketScreenState extends State<TransferMarketScreen> {
     );
   }
 
-  /// Simple scouting heuristic: which outfield position has the lowest
-  /// average rating in the managed squad. Good enough to point the
-  /// user somewhere useful; a fuller scouting system (scout reports,
-  /// hidden attributes revealed over time) is a natural next layer.
   _WeakPosition? _weakestPosition(List<Player> squad) {
     final byPosition = <Position, List<int>>{};
     for (final p in squad) {

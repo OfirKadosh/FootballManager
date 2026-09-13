@@ -5,10 +5,6 @@ import 'package:flutter/material.dart';
 
 import '../services/data_importer_service.dart';
 
-/// Lets the user bring their own data into the game — either a single
-/// JSON world file, or a pair of CSVs (clubs.csv + players.csv), or
-/// pasted JSON text for quick testing without a file picker. On
-/// success, pops back to NewGameScreen with the parsed ImportResult.
 class DataImportScreen extends StatefulWidget {
   const DataImportScreen({super.key});
 
@@ -242,8 +238,6 @@ class _DataImportScreenState extends State<DataImportScreen> {
     if (result.warnings.isEmpty) {
       Navigator.of(context).pop(result);
     } else {
-      // Show warnings but still let the user proceed — they're
-      // advisory (e.g. "club X has no players"), not blocking.
       setState(() {
         _busy = false;
         _warnings = result.warnings;

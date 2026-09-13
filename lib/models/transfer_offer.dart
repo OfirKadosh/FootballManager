@@ -1,11 +1,6 @@
 enum TransferOfferStatus { pending, accepted, rejected, withdrawn, countered }
-enum TransferOfferDirection { outgoing, incoming } // relative to the managed club
+enum TransferOfferDirection { outgoing, incoming }
 
-/// A single transfer negotiation. Phase 1 resolved an offer in one
-/// function call; Phase 2 makes it a persisted object so a negotiation
-/// can span multiple game weeks, be countered, and — once AI-initiated
-/// incoming offers are added — appear in the Inbox for the user to
-/// respond to.
 class TransferOffer {
   final String id;
   final String playerId;
@@ -14,7 +9,7 @@ class TransferOffer {
   final int amount;
   final TransferOfferDirection direction;
   TransferOfferStatus status;
-  final int? counterAmount; // set when status == countered
+  final int? counterAmount;
   final int gameWeekCreated;
 
   TransferOffer({

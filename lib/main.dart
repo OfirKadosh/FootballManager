@@ -8,6 +8,10 @@ void main() {
   runApp(const PocketManagerApp());
 }
 
+/// Root widget. Owns the single [GameController] instance for the
+/// whole app and loads the world/save state once, on startup, via
+/// [GameController.init]. Every screen downstream reads from this
+/// same controller instance — there's no separate per-screen state.
 class PocketManagerApp extends StatefulWidget {
   const PocketManagerApp({super.key});
 
@@ -21,6 +25,11 @@ class _PocketManagerAppState extends State<PocketManagerApp> {
   @override
   void initState() {
     super.initState();
+    // Loads the content pack (or an imported dataset later) and
+    // checks disk for an existing career save. This is the "load the
+    // new game state" step — everything the UI needs (countries,
+    // leagues, clubs, tactics, inbox, etc.) is on `controller.save`
+    // and `controller.pack` once this resolves.
     controller.init();
   }
 
@@ -33,6 +42,10 @@ class _PocketManagerAppState extends State<PocketManagerApp> {
         colorSchemeSeed: Colors.green,
         useMaterial3: true,
       ),
+      // ListenableBuilder re-runs this builder every time
+      // controller.notifyListeners() fires — which covers loading
+      // finishing, a new career starting, a matchday being played,
+      // etc. No separate setState wiring needed per screen.
       home: ListenableBuilder(
         listenable: controller,
         builder: (context, _) {

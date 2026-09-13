@@ -3,7 +3,7 @@ enum ObjectiveStatus { inProgress, achieved, failed }
 class Objective {
   final String id;
   final String description;
-  final int targetPosition; // finish at or above this table position
+  final int targetPosition;
   ObjectiveStatus status;
 
   Objective({

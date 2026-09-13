@@ -1,10 +1,10 @@
 class Fixture {
   final String id;
-  final String competitionId; // a League.id (continental cup added in a later phase)
-  final int round; // matchday number, 1-indexed, within its competition
+  final String competitionId;
+  final int round;
   final String homeClubId;
   final String awayClubId;
-  final int? homeGoals; // null until played
+  final int? homeGoals;
   final int? awayGoals;
 
   const Fixture({
@@ -41,10 +41,6 @@ class Fixture {
 
   factory Fixture.fromJson(Map<String, dynamic> json) => Fixture(
         id: json['id'] as String,
-        // Older (Phase 1) saves have no competition_id — everything
-        // was one implicit league. Give it a stable default so old
-        // saves still load; SeasonService always sets this explicitly
-        // for new fixtures.
         competitionId: json['competition_id'] as String? ?? 'legacy_league',
         round: json['round'] as int,
         homeClubId: json['home_club_id'] as String,

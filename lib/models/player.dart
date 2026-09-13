@@ -42,10 +42,6 @@ class PlayerAttributes {
   });
 
   factory PlayerAttributes.fromJson(Map<String, dynamic> json) {
-    // Backward-compatible with Phase 1's 6-attribute sample_pack.json:
-    // tackling/dribbling fall back to defending/pace-adjacent values,
-    // and the new mental/physical traits default to a neutral value
-    // if the source data (e.g. an older content pack) doesn't have them.
     final legacyDefending = json['defending'] as int?;
     return PlayerAttributes(
       pace: json['pace'] as int,
@@ -78,9 +74,6 @@ class PlayerAttributes {
 }
 
 /// A player is identified by a stable internal [id] that is never reused.
-/// Display data (name, nationality) is kept alongside stats here for
-/// simplicity in this skeleton; in the full design this would be split
-/// into a separate DisplayIdentity table (see spec §5).
 class Player {
   final String id;
   final String name;
@@ -92,8 +85,8 @@ class Player {
   final bool injured;
   final int injuryDaysRemaining;
   final bool retired;
-  final int wage; // per-season wage, in currency units
-  final int value; // market value, in currency units
+  final int wage;
+  final int value;
   final int contractYearsRemaining;
 
   const Player({
@@ -148,9 +141,6 @@ class Player {
         'contract_years_remaining': contractYearsRemaining,
       };
 
-  /// Position-weighted overall, used for lineup auto-pick and AI
-  /// transfer valuation. Each position blends more than one attribute
-  /// now that the attribute set is richer.
   int get overallRating {
     switch (position) {
       case Position.gk:

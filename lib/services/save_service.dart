@@ -5,9 +5,6 @@ import 'package:path_provider/path_provider.dart';
 
 import '../models/save_state.dart';
 
-/// Persists the single career save as a JSON file on-device. Real
-/// production version would sync this to the backend backup service
-/// (spec §2/§4); this skeleton is local-only.
 class SaveService {
   static const _fileName = 'career_save.json';
 

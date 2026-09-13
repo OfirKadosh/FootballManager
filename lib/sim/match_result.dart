@@ -1,7 +1,7 @@
 enum MatchEventType { goal, yellowCard, redCard, injury }
 
 class MatchEvent {
-  final int chunk; // which possession chunk this happened in (proxy for time)
+  final int chunk;
   final String clubId;
   final String playerId;
   final MatchEventType type;

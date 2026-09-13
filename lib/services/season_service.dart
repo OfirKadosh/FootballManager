@@ -17,10 +17,6 @@ class TableRow {
 }
 
 class SeasonService {
-  /// Generates a double round-robin fixture list (home & away) for an
-  /// even number of clubs using the standard circle method, tagged
-  /// with [competitionId] so multiple leagues' fixtures can share one
-  /// flat list (see [Fixture.competitionId]).
   static List<Fixture> generateRoundRobin(
     List<Club> clubs, {
     required String competitionId,
@@ -33,7 +29,7 @@ class SeasonService {
     final rounds = n - 1;
     final half = n ~/ 2;
     final fixtures = <Fixture>[];
-    var rotating = ids.sublist(1); // keep ids[0] fixed, rotate the rest
+    var rotating = ids.sublist(1);
 
     var fixtureCounter = fixtureIdOffset;
 
@@ -42,8 +38,6 @@ class SeasonService {
       for (var i = 0; i < half; i++) {
         final a = roundIds[i];
         final b = roundIds[n - 1 - i];
-        // Alternate home/away by round parity so it's not always the
-        // same side at home in the first leg.
         final home = (round.isEven) ? a : b;
         final away = (round.isEven) ? b : a;
         fixtures.add(Fixture(
@@ -54,13 +48,10 @@ class SeasonService {
           awayClubId: away,
         ));
       }
-      // Rotate: move last element to just after the fixed first id.
       final last = rotating.removeLast();
       rotating.insert(0, last);
     }
 
-    // Second leg: same pairings, home/away swapped, appended as
-    // further rounds.
     final firstLeg = List<Fixture>.from(fixtures);
     for (final f in firstLeg) {
       fixtures.add(Fixture(
@@ -75,10 +66,6 @@ class SeasonService {
     return fixtures;
   }
 
-  /// Computes a sorted league table (points, then goal difference,
-  /// then goals for) from played fixtures. Pass only the fixtures and
-  /// clubs belonging to one competition — see [WorldService] for the
-  /// multi-league orchestration.
   static List<TableRow> computeTable(List<Club> clubs, List<Fixture> fixtures) {
     final rows = {for (final c in clubs) c.id: TableRow(c.id)};
 
@@ -116,6 +103,6 @@ class SeasonService {
   }
 
   static int tablePositionOf(String clubId, List<TableRow> table) {
-    return table.indexWhere((r) => r.clubId == clubId) + 1; // 1-indexed
+    return table.indexWhere((r) => r.clubId == clubId) + 1;
   }
 }

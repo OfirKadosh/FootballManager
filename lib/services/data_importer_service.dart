@@ -27,27 +27,6 @@ class ImportResult {
   });
 }
 
-/// Parses a user-supplied JSON or CSV database into the game's World
-/// schema (Country/League/Club/Player). This is the "Immediate Task"
-/// data importer — it's deliberately strict about validation (fails
-/// loudly with a specific row/field, rather than silently coercing bad
-/// data), because a broken import corrupting someone's career save is
-/// a much worse experience than a rejected upload with a clear reason.
-///
-/// JSON schema expected (see assets/content/sample_world_pack.json
-/// for a complete worked example):
-/// ```
-/// {
-///   "countries": [{"id": "...", "name": "..."}],
-///   "leagues": [{"id": "...", "country_id": "...", "name": "...",
-///                "tier": 1, "promotion_spots": 2,
-///                "relegation_spots": 2,
-///                "continental_qualification_spots": 2}],
-///   "clubs": [{"id": "...", "league_id": "...", "name": "...",
-///              "short_name": "...", "reputation": 60,
-///              "stadium_capacity": 30000, "squad": [ {Player...} ]}]
-/// }
-/// ```
 class DataImporterService {
   static ImportResult parseJson(String raw) {
     final Map<String, dynamic> root;
@@ -118,10 +97,6 @@ class DataImporterService {
     );
   }
 
-  /// Parses two CSVs — a clubs table and a players table joined by
-  /// `club_id` — into the same World schema as [parseJson]. Countries
-  /// and leagues are derived from `country_name`/`league_name`/`tier`
-  /// columns on the clubs CSV, auto-generating stable slug IDs.
   static ImportResult parseCsv({
     required String clubsCsv,
     required String playersCsv,
@@ -233,8 +208,6 @@ class DataImporterService {
     );
   }
 
-  /// Shared post-parse checks: every league needs an even club count
-  /// (the round-robin generator requires it) and at least 2 clubs.
   static void _validateWorldShape(
     List<League> leagues,
     List<Club> clubs,
@@ -274,10 +247,6 @@ class DataImporterService {
   static String _slug(String s) =>
       s.toLowerCase().trim().replaceAll(RegExp(r'[^a-z0-9]+'), '_');
 
-  /// Minimal RFC-4180-ish CSV parser: handles quoted fields containing
-  /// commas or embedded quotes ("" escaping), but not multi-line quoted
-  /// fields. Good enough for flat player/club export sheets; swap for
-  /// a proper CSV package if richer input needs to be supported later.
   static List<Map<String, String>> _parseCsvTable(String csv) {
     final lines = csv.split(RegExp(r'\r\n|\n')).where((l) => l.trim().isNotEmpty).toList();
     if (lines.isEmpty) return [];

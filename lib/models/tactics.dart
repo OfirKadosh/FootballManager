@@ -3,13 +3,12 @@ enum TacticalStyle { highPress, counterAttack, possession }
 enum Mentality { defensive, balanced, attacking }
 
 extension FormationSlots on Formation {
-  /// Outfield slot counts per position, GK always 1 and implicit.
   Map<String, int> get slots {
     switch (this) {
       case Formation.f433:
         return {'def': 4, 'mid': 3, 'fwd': 3};
       case Formation.f4231:
-        return {'def': 4, 'mid': 5, 'fwd': 1}; // 2 DM + 3 AM folded into mid
+        return {'def': 4, 'mid': 5, 'fwd': 1};
       case Formation.f352:
         return {'def': 3, 'mid': 5, 'fwd': 2};
     }

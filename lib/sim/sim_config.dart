@@ -1,13 +1,9 @@
-/// All tunable weights for the match engine. This is the piece that
-/// ships inside a versioned content pack (not hardcoded in the app),
-/// so balance changes don't require an app store release.
-/// See spec §6.
 class SimConfig {
   final int possessionChunksPerMatch;
-  final double homeAdvantage; // additive bonus to home attack/midfield
-  final double chanceConversionBaseline; // baseline chance a chance scores
-  final double fitnessImpact; // how much low fitness hurts a rating
-  final double moraleImpact; // how much low morale hurts a rating
+  final double homeAdvantage;
+  final double chanceConversionBaseline;
+  final double fitnessImpact;
+  final double moraleImpact;
   final int randomSeedFallback;
 
   const SimConfig({

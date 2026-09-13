@@ -7,20 +7,8 @@ import 'match_result.dart';
 import 'sim_config.dart';
 
 /// Pure, deterministic match simulation: (team_a, team_b, config, seed)
-/// -> MatchResult. Same inputs always produce the same output, which
-/// makes results testable and reproducible. See spec §6.
-///
-/// The algorithm itself is intentionally simple and coarse (possession
-/// "chunks" rather than minute-by-minute simulation) — it's a v1
-/// skeleton meant to be tuned via [SimConfig], not a final balance.
-///
-/// Phase 2 note: mentality and tactical style are both modeled as a
-/// home-side-only shift (a known v1 simplification carried over from
-/// Phase 1 — see README "Where to go next"). Applying a symmetric
-/// shift for the away side too, when the managed club is away, is a
-/// natural next increment once this needs to feel fair in both
-/// directions; it's a small change to this function's call sites, not
-/// to its structure.
+/// -> MatchResult. Mentality and tactical style are both modeled as a
+/// home-side-only shift (a known v1 simplification).
 class MatchEngine {
   final SimConfig config;
 
@@ -46,8 +34,6 @@ class MatchEngine {
 
     final styleShift = _styleShift(homeStyle);
 
-    // Home advantage, mentality, and tactical style all apply to the
-    // home side's attack/midfield/defense split only (see class doc).
     final homeAttack = homeRatings.attack +
         config.homeAdvantage +
         homeMentalityShift +
@@ -62,7 +48,6 @@ class MatchEngine {
     final events = <MatchEvent>[];
 
     for (var chunk = 0; chunk < config.possessionChunksPerMatch; chunk++) {
-      // Who has possession this chunk, weighted by midfield strength.
       final possessionRoll = rng.nextDouble() * (homeMid + awayMid);
       final homeHasBall = possessionRoll < homeMid;
 
@@ -72,14 +57,12 @@ class MatchEngine {
           homeHasBall ? awayRatings.defense : homeDefenseBase - homeMentalityShift;
       final attackingRating = homeHasBall ? homeAttack : awayAttack;
 
-      // Does possession produce a scoring chance?
       final chanceThreshold =
           attackingRating / (attackingRating + defendingRating);
       if (rng.nextDouble() > chanceThreshold) {
-        continue; // no chance created this chunk
+        continue;
       }
 
-      // Does the chance convert to a goal?
       final scorer = _pickScorer(attackingSquad, rng);
       if (scorer == null) continue;
 
@@ -117,10 +100,6 @@ class MatchEngine {
     );
   }
 
-  /// Tactical style shifts (attack, midfield, defense) — deliberately
-  /// modest, same order of magnitude as home advantage/mentality, so
-  /// no single lever dominates the others. Tunable via a future
-  /// SimConfig extension rather than hardcoded here long-term.
   _StyleShift _styleShift(TacticalStyle? style) {
     switch (style) {
       case TacticalStyle.highPress:
@@ -185,7 +164,6 @@ class MatchEngine {
     final candidates =
         squad.where((p) => p.position != Position.gk).toList();
     if (candidates.isEmpty) return null;
-    // Weight by shooting attribute so strikers are more likely scorers.
     final weights = candidates.map((p) => p.attributes.shooting).toList();
     final total = weights.reduce((a, b) => a + b);
     var roll = rng.nextDouble() * total;
